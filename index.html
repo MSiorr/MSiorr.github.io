@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="PL-pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Michał Ślęzak 2Ic">
+    <title>Corona Clicker</title>
+
+    <link rel="stylesheet" href="fontello/css/fontello.css" type="text/css">
+    <link rel="stylesheet" href="app.css" type="text/css">
+</head>
+<body>
+    
+    <div id="container">
+        <div id="main">
+
+            <div id="clickarea">
+                <div id="prestiege">Prestiege</div>
+
+                <div id="score">
+
+                    You have <span id="scoreSpan">0</span> points.<br>
+
+                    <div id="secondCounter"></div>
+
+                </div>
+                <div id="coronavirus"></div>
+
+                <div id="resPerSec"></div>
+                
+                <div id="barBorder">
+
+                    <div style="position: relative; z-index: 10;"><span id="rescueSpan">0</span> / 7 794 798 739</div>
+    
+                    <div id="bar"></div>
+
+                </div>
+            </div>
+            <div id="upgradeMenu">
+
+                <div id="options">
+
+                    <div id="upgrades" data-button="upgr">
+
+                        <i id="upgButton" class="icon-up-circle"></i>
+                        <div class="upgradeIconUpgr"></div>
+
+                    </div>
+                    <div id="hospitals" data-button="hosp">
+
+                        <i id="upgButton" class="icon-hospital"></i>
+                        <div class="upgradeIconHosp"></div>
+
+                    </div>
+                </div>
+                <div id="upgradeList" class="listVisible">
+
+                    <p class="listTitle">UPGRADES</p>
+
+                    <div class="upgradeLook" data-upgrade="tapUpgrade">
+                        <div class="name">Medicus</div>
+                        <div class="nowPoints"> Points / tap: 1 </div>
+                        <div class="upgrade-label">Upgrade:</div>
+                        <div class="nextLvl">Points: 2</div>
+                        <div class="cost">Cost: 10</div>
+                        <div class="lvl">LVL: 1</div> 
+                        <div style="clear: both;"></div>
+                        <div class="upgradeBack"></div>
+                    </div>
+                    <div class="upgradeLook" data-upgrade="mask">
+                        <div class="name">Masks</div>
+                        <div class="nowPoints"> Points / sec: 0 </div>
+                        <div class="upgrade-label">Upgrade:</div>
+                        <div class="nextLvl">Points: 5</div>
+                        <div class="cost">Cost: 150</div>
+                        <div class="lvl">LVL: 0</div> 
+                        <div style="clear: both;"></div>
+                        <div class="upgradeBack"></div>
+                    </div>
+                    <div class="upgradeLook" data-upgrade="glove">
+                        <div class="name">Gloves</div>
+                        <div class="nowPoints"> Points / sec: 0 </div>
+                        <div class="upgrade-label">Upgrade:</div>
+                        <div class="nextLvl">Points: 25</div>
+                        <div class="cost">Cost: 900</div>
+                        <div class="lvl">LVL: 0</div> 
+                        <div style="clear: both;"></div>
+                        <div class="upgradeBack"></div>
+                    </div>
+                    <div class="upgradeLook" data-upgrade="suit">
+                        <div class="name">Suits</div>
+                        <div class="nowPoints"> Points / sec: 0 </div>
+                        <div class="upgrade-label">Upgrade:</div>
+                        <div class="nextLvl">Points: 100</div>
+                        <div class="cost">Cost: 2750</div>
+                        <div class="lvl">LVL: 0</div> 
+                        <div style="clear: both;"></div>
+                        <div class="upgradeBack"></div>
+                    </div>
+                    <div class="upgradeLook" data-upgrade="ambulance">
+                        <div class="name">Ambulances</div>
+                        <div class="nowPoints"> Points / sec: 0 </div>
+                        <div class="upgrade-label">Upgrade:</div>
+                        <div class="nextLvl">Points: 250</div>
+                        <div class="cost">Cost: 9750</div>
+                        <div class="lvl">LVL: 0</div> 
+                        <div style="clear: both;"></div>
+                        <div class="upgradeBack"></div>
+                    </div>
+                </div>
+                <div id="hospitalList" class="listHidden">
+
+                    <p class="listTitle">HOSPITALS</p>
+
+                    <div class="upgradeLookv2" data-upgrade="hospital1Upgrade">
+                        <div class="name">First Hospital</div>
+                        <div class="nowPoints"> People rescued / sec: 0 </div>
+                        <div class="upgrade-label">Upgrade:</div>
+                        <div class="nextLvl">Rescue: 0.1</div>
+                        <div class="cost">Cost: 1000</div>
+                        <div class="lvl">LVL: 0</div> 
+                        <div style="clear: both;"></div>
+                        <div class="upgradeBack"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="alert"> KONIEC WERSJI DEMO </div>
+        <div id="backgroundMax"></div>
+    </div>
+	<script src="app.js"></script>
+</body>
+</html>
