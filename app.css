@@ -100,9 +100,7 @@ body {
 }
 
 #alert {
-
-    width: 700px;
-    height: 300px;
+    
     text-align: center;
     font-size: 80px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
