@@ -108,7 +108,6 @@ body {
     border: 10px solid #e8d595;
     color: #222222;
     border-radius: 50px;
-    padding: 55px;
     position: absolute;
     top: calc((100% - 300px) / 2);
     left: calc((100% - 700px) / 2);
