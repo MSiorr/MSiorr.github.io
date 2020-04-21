@@ -138,7 +138,8 @@ for(i=1 ; i<siteUpgrades.length; i++){
 }
 prestiegeButton.style.height = "0";
 prestiegeButton.style.filter = "opacity(0%)";
-alertHandle.style.position = "relative";
+alertHandle.style.top = "0"
+alertHandle.style.left = "0"
 alertHandle.style.height = "0";
 alertHandle.style.filter = "opacity(0%)";
 
@@ -352,7 +353,8 @@ function prestiegeAlert() {
     document.getElementById("backgroundMax").style.width = "100%";
     document.getElementById("backgroundMax").style.height = "100%";
 
-    alertHandle.style.position = "absolute";
+    alertHandle.style.top = "calc((100% - 300px) / 2)";
+    alertHandle.style.left = "calc((100% - 700px) / 2)";
     alertHandle.style.height = "300px";
     alertHandle.style.transition = "filter 2s";
     alertHandle.style.filter = "opacity(100%)";
