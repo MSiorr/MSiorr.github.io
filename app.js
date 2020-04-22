@@ -348,7 +348,7 @@ function progressBar() {
 function prestiegeAlert() {
 
     document.getElementById("main").style.transition = "opacity 1.5s";
-    document.getElementById("main").style.opacity = "20%";
+    document.getElementById("main").style.opacity = "25%";
     document.getElementById("backgroundMax").style.width = "100%";
     document.getElementById("backgroundMax").style.height = "100%";
 
