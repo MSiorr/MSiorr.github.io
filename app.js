@@ -290,6 +290,7 @@ function hospitalBuy(event){
                     prestiegeButton.style.height = "40px";
                     prestiegeButton.style.transition = "filter 600ms";
                     prestiegeButton.style.filter = "opacity(100%)";
+                    prestiegeButton.style.zIndex = "10";
                 }
                 updateScore();
                 updateRescue();
