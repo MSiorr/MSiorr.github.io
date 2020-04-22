@@ -138,8 +138,6 @@ for(i=1 ; i<siteUpgrades.length; i++){
 }
 prestiegeButton.style.height = "0";
 prestiegeButton.style.filter = "opacity(0%)";
-alertHandle.style.top = "0"
-alertHandle.style.left = "0"
 alertHandle.style.height = "0";
 alertHandle.style.filter = "opacity(0%)";
 
@@ -354,11 +352,10 @@ function prestiegeAlert() {
     document.getElementById("backgroundMax").style.height = "100%";
 
     alertHandle.innerHTML = " KONIEC WERSJI DEMO "
-    alertHandle.style.top = "calc((100% - 300px) / 2)";
-    alertHandle.style.left = "calc((100% - 700px) / 2)";
     alertHandle.style.width = "700px";
     alertHandle.style.height = "300px";
     alertHandle.style.padding = "55px";
+    alertHandle.style.border = "border: 10px solid #e8d595";
     alertHandle.style.transition = "filter 2s";
     alertHandle.style.filter = "opacity(100%)";
 
