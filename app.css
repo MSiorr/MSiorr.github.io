@@ -40,9 +40,9 @@ body {
 
     height: 100%;
     width: 100%;
-    display: flex;
-    justify-content: space-between;
     background-color: #2050b8;
+    float: left;
+    position: relative;
 
 }
 
@@ -59,11 +59,13 @@ body {
 
     height: 100%;
     width: 270px;
+    float: left;
     background-color: #1247B8;
     border: 4px solid #0E2B6B;
     border-radius: 0 0 0 15px;
     overflow-x: hidden;
-    position: relative;
+    position: absolute;
+    top: 0;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 

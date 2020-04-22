@@ -128,7 +128,9 @@ prestiegeButton.style.height = "0";
 prestiegeButton.style.filter = "opacity(0%)";
 alertHandle.style.height = "0";
 alertHandle.style.filter = "opacity(0%)";
-upgradeMenu.style.display = "none";
+upgradeMenu.style.right = "-270px";
+upgradeMenu.style.top = "0";
+clickarea.style.width = "100%";
 
 for(i=0; i < UpgradeList.upgrades.length; i++) {
     if(UpgradeList.upgrades[i].desc == "Points / sec:"){
@@ -380,13 +382,16 @@ function prestiegeAlert() {
 function menuShow() {
 
     if(menuVisible == false) {
-        upgradeMenu.style.display = "block";
-        menuVisible = true;
+        upgradeMenu.style.transition = "all 1s";
+        upgradeMenu.style.right = "0";
+        clickarea.style.transition = "width 1s";
         clickarea.style.width = "calc(100% - 270px)";
+        menuVisible = true;
 
     } else {
-        upgradeMenu.style.display = "none"
-        menuVisible = false;
+        upgradeMenu.style.right = "-270px";
+        upgradeMenu.style.transition = "all 1s";
         clickarea.style.width = "100%";
+        menuVisible = false;
     }
 };
