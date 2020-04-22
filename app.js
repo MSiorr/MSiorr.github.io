@@ -120,6 +120,11 @@ HospitalList.upgrades.push({
     visible: true
 });
 
+prestiegeButton.style.height = "0";
+prestiegeButton.style.filter = "opacity(0%)";
+alertHandle.style.height = "0";
+alertHandle.style.filter = "opacity(0%)";
+
 for(i=0; i < UpgradeList.upgrades.length; i++) {
     if(UpgradeList.upgrades[i].desc == "Points / sec:"){
         secondList.push(i);
@@ -136,10 +141,6 @@ for(i=1 ; i<siteUpgrades.length; i++){
     siteUpgrades[i].style.height = "0";
     siteUpgrades[i].style.filter = "opacity(0%)";
 }
-prestiegeButton.style.height = "0";
-prestiegeButton.style.filter = "opacity(0%)";
-alertHandle.style.height = "0";
-alertHandle.style.filter = "opacity(0%)";
 
 
 unlockVisible();
@@ -280,7 +281,7 @@ function hospitalBuy(event){
                 secRescue = HospitalList.upgrades[i].currentPoints;
 
                 if(HospitalList.upgrades[i].level == 20) {
-                    prestiegeButton.style.height = "auto";
+                    prestiegeButton.style.height = "40px";
                     prestiegeButton.style.transition = "filter 600ms";
                     prestiegeButton.style.filter = "opacity(100%)";
                 }
