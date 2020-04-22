@@ -151,6 +151,13 @@ body {
         left: calc((100% - 196px) / 2);
         background-image: url("Img/coronavirus2.png");
     }
+    #score {
+        font-size: 28px;
+        padding-top: 40px;
+    }
+    #secondCounter {
+        font-size: 20px;
+    }
 }
 
 @media screen and (max-height: 600px) {
