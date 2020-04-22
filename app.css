@@ -75,6 +75,9 @@ body {
     text-align: center;
     font-size: 35px;
     color: whitesmoke;
+    position: relative;
+    z-index: 1;
+
 }
 
 #prestiege {
@@ -139,6 +142,26 @@ body {
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
+
+@media screen and (max-width: 850px) {
+    #coronavirus::after {
+        width: 196px;
+        height: 200px;
+        top: calc((100% - 200px) / 2);
+        left: calc((100% - 196px) / 2);
+        background-image: url("Img/coronavirus2.png");
+    }
+}
+
+@media screen and (max-height: 600px) {
+    #coronavirus::after {
+        width: 196px;
+        height: 200px;
+        top: calc((100% - 200px) / 2);
+        left: calc((100% - 196px) / 2);
+        background-image: url("Img/coronavirus2.png");
+    }
+}
 #options {
 
     height: 40px;
@@ -427,4 +450,12 @@ body {
     position: absolute;
     bottom: 60px;
     left: 0;
+}
+
+#resSpan {
+
+    color: rgb(204, 72, 72);
+    font-size: 28px;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
 }
