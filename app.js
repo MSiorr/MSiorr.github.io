@@ -13,6 +13,9 @@ var listOfHospitals = document.getElementById('hospitalList');
 var barBorder = document.getElementById('barBorder');
 var bar = document.getElementById('bar');
 var alertHandle = document.getElementById("alert");
+var menuHide = document.getElementById('menuHide');
+var upgradeMenu = document.getElementById('upgradeMenu');
+var clickarea = document.getElementById('clickarea');
 
 
 var points = 0;
@@ -22,6 +25,7 @@ var secRescue = 0;
 var secondList = [];
 var rescueList = [];
 var target = Math.log(7794798739);
+var menuVisible = false;
 
 var UpgradeList = {upgrades: []};
 var HospitalList = {upgrades: []};
@@ -124,6 +128,7 @@ prestiegeButton.style.height = "0";
 prestiegeButton.style.filter = "opacity(0%)";
 alertHandle.style.height = "0";
 alertHandle.style.filter = "opacity(0%)";
+upgradeMenu.style.display = "none";
 
 for(i=0; i < UpgradeList.upgrades.length; i++) {
     if(UpgradeList.upgrades[i].desc == "Points / sec:"){
@@ -156,6 +161,7 @@ for(i=0; i < hospUpgrades.length; i++){
     hospUpgrades[i].addEventListener("click", (event) => { hospitalBuy(event); });
 };
 
+menuHide.addEventListener("click", function() { menuShow(); });
 prestiegeButton.addEventListener("click", function() { prestiegeAlert(); });
 upgrButton.addEventListener("click", function(element) { updatePanel(element); });
 hospButton.addEventListener("click", function(element) { updatePanel(element); });
@@ -368,4 +374,18 @@ function prestiegeAlert() {
 
         UpgradeList.upgrades[i].currentPoints = 0;
     }
-}
+};
+
+function menuShow() {
+
+    if(menuVisible == false) {
+        upgradeMenu.style.display = "block";
+        menuVisible = true;
+        clickarea.style.width = "calc(100% - 270px)";
+
+    } else {
+        upgradeMenu.style.display = "none"
+        menuVisible = false;
+        clickarea.style.width = "100%";
+    }
+};

@@ -49,7 +49,7 @@ body {
 #clickarea {
 
     height: 100%;
-    width: calc(100% - 275px);
+    width: 100%;
     position: relative;
     overflow: hidden;
 
@@ -58,10 +58,10 @@ body {
 #upgradeMenu {
 
     height: 100%;
-    width: 275px;
+    width: 270px;
     background-color: #1247B8;
     border: 4px solid #0E2B6B;
-    border-radius: 15px 0 0 15px;
+    border-radius: 0 0 0 15px;
     overflow-x: hidden;
     position: relative;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -143,7 +143,7 @@ body {
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 600px) {
     #coronavirus::after {
         width: 196px;
         height: 200px;
@@ -458,4 +458,28 @@ body {
     font-size: 28px;
     font-weight: bold;
     font-family: 'Courier New', Courier, monospace;
+}
+
+#menuHide {
+
+    color: whitesmoke;
+    font-size: 31px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: bold;
+    background-color: #1247B8;
+    width: 100px;
+    text-align: center;
+    border: 4px solid #0E2B6B;
+    border-radius: 10px 0 0 10px;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+}
+
+#menuHide:hover {
+
+    background-color: #2358C9;
+    border: 4px solid #1F3C7C;
 }
