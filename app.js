@@ -355,7 +355,7 @@ function prestiegeAlert() {
     alertHandle.style.width = "700px";
     alertHandle.style.height = "300px";
     alertHandle.style.padding = "55px";
-    alertHandle.style.border = "border: 10px solid #e8d595";
+    alertHandle.style.border = "10px solid #e8d595";
     alertHandle.style.transition = "filter 2s";
     alertHandle.style.filter = "opacity(100%)";
 
