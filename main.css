@@ -25,7 +25,6 @@ a {
 
     text-decoration: none;
     color: whitesmoke;
-    cursor: pointer;
 }
 
 #container {
@@ -48,6 +47,7 @@ a {
     width: 35vw;
     height: calc(0.5 * 35vw);
     border: 4px solid whitesmoke;
+    cursor: pointer;
     text-align: center;
     display: flex;
     justify-content: center;
@@ -68,6 +68,7 @@ a {
     width: 35vw;
     height: calc(0.5 * 35vw);
     border: 4px solid whitesmoke;
+    cursor: pointer;
     text-align: center;
     display: flex;
     justify-content: center;
