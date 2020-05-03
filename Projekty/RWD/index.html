@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
   <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
-  <title>Your page title here :)</title>
+  <title>Portfolio</title>
   <meta name="description" content="">
   <meta name="author" content="">
 
@@ -15,7 +16,7 @@
 
   <!-- FONT
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
   <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
 
 
@@ -25,7 +26,7 @@
   <link rel="stylesheet" href="css/skeleton.css">
 
 
-  <link rel="stylesheet" href="css/base.css">
+  <!-- <link rel="stylesheet" href="css/base.css"> -->
   <link rel="stylesheet" href="css/skeleton.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
@@ -35,65 +36,206 @@
   <link rel="icon" type="image/png" href="images/favicon.png">
 
 </head>
+
 <body>
 
-<header class="header">
+  <header class="header">
     <div class="logo">
-<h1>Portfolio</h1>
+      <h1>Portfolio</h1>
     </div>
-</header>
+  </header>
 
-<form class="container clearfix">
+  <form class="container clearfix">
 
-  <input class="nav-menu" id="all" type="radio" name="filter"
-checked="checked"/>
-<label for="all">Wszystkie</label>
-<input class="nav-menu" id="illustrations" type="radio"
-name="filter"/>
-<label for="illustrations">Ilustracje</label>
-<input class="nav-menu" id="posters" type="radio" name="filter"/>
-<label class="nav-menu" for="posters">Plakaty</label>
-<input class="nav-menu" id="typography" type="radio"
-name="filter"/>
-<label for="typography">Typografia</label>
-<input class="nav-menu" id="packaging" type="radio"
-name="filter"/>
-<label for="packaging">Opakowania</label>
+    <div class="row item-list">
+      <div class="menu-container-v2">
+        <div class="two columns menu-style">
+          <input class="nav-menu" id="all" type="radio" name="filter" checked="checked" data-type="all"/>
+          <label for="all">Wszystkie</label>
+        </div>
+        <div class="two columns menu-style">
+          <input class="nav-menu" id="illustrations" type="radio" name="filter" data-type="ilustracja"/>
+          <label for="illustrations">Ilustracje</label>
+        </div>
+        <div class="two columns menu-style">
+          <input class="nav-menu" id="posters" type="radio" name="filter" data-type="plakat"/>
+          <label for="posters">Plakaty</label>
+        </div>
+        <div class="two columns menu-style">
+          <input class="nav-menu" id="typography" type="radio" name="filter" data-type="typografia"/>
+          <label for="typography">Typografia</label>
+        </div>
+        <div class="two columns menu-style">
+          <input class="nav-menu" id="packaging" type="radio" name="filter" data-type="opakowanie"/>
+          <label for="packaging">Opakowania</label>
+        </div>
+      </div>
+    </div>
 
-<section class="portfolio">
-  <figure class="four columns all poster" data category="ilustracje">
-    <img src="images/image-1.jpg" alt="To jest pierwsza miniatura portfolio.">
-    <figcaption>
-      <h4>Lorem Ipsum</h4>
-      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
-    </figcaption>
-</figure>
+    <div class="row">
 
-</form>
+      <div class="one-half column plate" data-type="ilustracja">
+        <section class="portfolio">
+          <figure class="all poster">
+            <img src="images/image-1.png" alt="To jest pierwsza miniatura portfolio.">
+            <figcaption>
+              <h4>Lorem Ipsum</h4>
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s</p>
+            </figcaption>
+          </figure>
+        </section>
+      </div>
 
-<footer class="container clearfix">
-  <div class="contact">
-<ul>
-<li class="contact-name">Piotr Niewiadomski</li>
-<li class="contact-phone">(+48) 600-700-800</li>
-<li class="contact-email">piotrek@niewiadomski.pl</li>
-</ul>
-  </div>
-  <div class="social">
-<p class="copyright">Piotr Niewiadomski</p>
-<ul>
-<li class="social-dribbble">
-<a href="#">Dribbble</a></li>
-<li class="social-facebook">
-<a href="#">Facebook</a></li>
-<li class="social-twitter">
-<a href="#">Twitter</a></li>
-</ul>
-  </div>
-</footer>
+      <div class="one-half column plate" data-type="ilustracja">
+        <section class="portfolio">
+          <figure class="all poster">
+            <img src="images/image-2.png" alt="To jest pierwsza miniatura portfolio.">
+            <figcaption>
+              <h4>Lorem Ipsum</h4>
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s</p>
+            </figcaption>
+          </figure>
+        </section>
+      </div>
 
-  
-<!-- End Document
+      <div class="one-half column plate no-margin-left" data-type="ilustracja">
+        <section class="portfolio">
+          <figure class="all poster">
+            <img src="images/image-3.png" alt="To jest pierwsza miniatura portfolio.">
+            <figcaption>
+              <h4>Lorem Ipsum</h4>
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s</p>
+            </figcaption>
+          </figure>
+        </section>
+      </div>
+
+      <div class="one-half column plate" data-type="ilustracja">
+        <section class="portfolio">
+          <figure class="all poster">
+            <img src="images/image-4.png" alt="To jest pierwsza miniatura portfolio.">
+            <figcaption>
+              <h4>Lorem Ipsum</h4>
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s</p>
+            </figcaption>
+          </figure>
+        </section>
+      </div>
+
+      <div class="one-half column plate no-margin-left" data-type="plakat">
+        <section class="portfolio">
+          <figure class="all poster">
+            <img src="images/image-5.png" alt="To jest pierwsza miniatura portfolio.">
+            <figcaption>
+              <h4>Lorem Ipsum</h4>
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s</p>
+            </figcaption>
+          </figure>
+        </section>
+      </div>
+
+      <div class="one-half column plate" data-type="plakat">
+        <section class="portfolio">
+          <figure class="all poster">
+            <img src="images/image-6.png" alt="To jest pierwsza miniatura portfolio.">
+            <figcaption>
+              <h4>Lorem Ipsum</h4>
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s</p>
+            </figcaption>
+          </figure>
+        </section>
+      </div>
+
+      <div class="one-half column plate no-margin-left" data-type="typografia">
+        <section class="portfolio">
+          <figure class="all poster">
+            <img src="images/image-7.png" alt="To jest pierwsza miniatura portfolio.">
+            <figcaption>
+              <h4>Lorem Ipsum</h4>
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s</p>
+            </figcaption>
+          </figure>
+        </section>
+      </div>
+
+      <div class="one-half column plate" data-type="typografia">
+        <section class="portfolio">
+          <figure class="all poster">
+            <img src="images/image-8.png" alt="To jest pierwsza miniatura portfolio.">
+            <figcaption>
+              <h4>Lorem Ipsum</h4>
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s</p>
+            </figcaption>
+          </figure>
+        </section>
+      </div>
+
+      <div class="one-half column plate no-margin-left" data-type="opakowanie">
+        <section class="portfolio">
+          <figure class="all poster">
+            <img src="images/image-9.png" alt="To jest pierwsza miniatura portfolio.">
+            <figcaption>
+              <h4>Lorem Ipsum</h4>
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s</p>
+            </figcaption>
+          </figure>
+        </section>
+      </div>
+
+      <div class="one-half column plate" data-type="opakowanie">
+        <section class="portfolio">
+          <figure class="all poster">
+            <img src="images/image-10.png" alt="To jest pierwsza miniatura portfolio.">
+            <figcaption>
+              <h4>Lorem Ipsum</h4>
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s</p>
+            </figcaption>
+          </figure>
+        </section>
+      </div>
+
+    </div>
+  </form>
+
+  </form>
+
+  <footer class="container clearfix" style="margin-bottom: 0;">
+    <div class="contact one-half column">
+      <ul class="contact-list">
+        <li class="contact-name" data-contactImage="Person">Piotr Niewiadomski</li>
+        <li class="contact-phone" data-contactImage="Telephone">(+48) 600-700-800</li>
+        <li class="contact-email" data-contactImage="Mail">piotrek@niewiadomski.pl</li>
+      </ul>
+    </div>
+    <div class="social one-half column">
+      <ul class="social-list">
+        <li class="social-dribbble">
+          <a href="#"><img class="dribbbleImg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><br>Dribbble</a></li>
+        <li class="social-facebook">
+          <a href="#"><img class="facebookImg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><br>Facebook</a></li>
+        <li class="social-twitter">
+          <a href="#"><img class="twitterImg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><br>Twitter</a></li>
+      </ul>
+    </div>
+    <div class="u-cf"></div>
+    <div class="copyright-div">
+      <p class="copyright">&copy; Piotr Niewiadomski</p>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+
+  <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>
 </html>
