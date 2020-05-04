@@ -24,7 +24,7 @@ body {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    margin: 0 !important;
+    margin: 0;
 }
 
 input[type="radio"] {
@@ -55,10 +55,6 @@ input[type="radio"] {
 
 .plate {
     margin-bottom: 2rem;
-}
-
-.no-margin-left {
-    margin-left: 0 !important;
 }
 
 footer {
