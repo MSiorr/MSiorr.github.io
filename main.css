@@ -129,3 +129,27 @@ a {
 
     opacity: 1; 
 }
+
+@media (max-width: 800px) {
+
+    #first_duo {
+        height: 100vh;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        padding-top: calc(60vh - (2 *(0.5 * 75vw)));
+        padding-bottom: calc(60vh - (2 *(0.5 * 75vw)));
+    }
+
+    .plate-left,
+    .plate-right {
+
+        width: 75vw;
+        height: calc(0.5 * 75vw);
+    }
+
+    .plate-left:hover,
+    .plate-right:hover {
+        transform: scale(1.25);
+    }
+}
