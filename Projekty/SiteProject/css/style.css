@@ -1,0 +1,268 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f9f4e3;
+    margin: 0;
+}
+
+a {
+    display: inline;
+    text-align: center;
+    text-decoration: none;
+}
+
+.logo {
+    position: relative;
+}
+
+#lineLogoLeft {
+    border: 1px solid black;
+    width: 1px;
+    height: 2px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: -1;
+    top: 38px;
+    left: 469px;
+    transition: width 2s ease-out;
+}
+
+#lineLogoRight {
+    border: 1px solid black;
+    width: 1px;
+    height: 2px;
+    margin: 0;
+    z-index: -1;
+    padding: 0;
+    position: absolute;
+    top: 38px;
+    right: 349px;
+    transition: width 2s ease-out;
+}
+
+.margin_top {
+    margin-top: 20px;
+}
+
+.menu a {
+    font-size: 26px;
+    padding: 9px 0 5px 0;
+    color: black;
+    background-color: white;
+    border: 2px solid #d3a81b;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: border 0.3s, transform 0.2s;
+}
+
+.menu a:hover {
+    transform: scale(1.1);
+    border: 2px solid #e4b92c;
+}
+
+.slider {
+    overflow: hidden;
+    height: 220px;
+    width: 100%;
+    position: relative;
+}
+
+.slider, .slider * {
+    user-select: none;
+}
+
+#slideCarousel {
+    height: 220px;
+    width: 500%;
+}
+
+#slideCarousel img {
+    float: left;
+    filter: brightness(95%);
+}
+
+#nextBtn {
+    position: absolute;
+    top: calc((100% - 75px) / 2);
+    right: 2.5%;
+    z-index: 10;
+    font-size: 75px;
+    color: #f9f4e3;
+    filter: drop-shadow(0 0 5px black);
+    cursor: pointer;
+}
+
+#prevBtn {
+    position: absolute;
+    top: calc((100% - 75px) / 2);
+    left: 2.5%;
+    z-index: 10;
+    font-size: 75px;
+    color: #f9f4e3;
+    filter: drop-shadow(0 0 5px black);
+    cursor: pointer;
+}
+
+.dots::selection {
+    color: none;
+}
+
+.dots:hover {
+    cursor: default;
+}
+
+.dots {
+    width: 58px;
+    text-align: center;
+    position: absolute;
+    bottom: 1%;
+    z-index: 10;
+    right: calc((100% - 58px) / 2);
+    color: #f9f4e3;
+}
+
+.dot {
+    filter: drop-shadow(0 0 5px black);
+    cursor: pointer;
+}
+
+.description {
+    height: 201px;
+    font-size: 30px;
+    text-align: left;
+    padding: 28px 50px;
+    background-color: white;
+    border: 2px solid #d3a81b;
+    border-radius: 5px;
+}
+
+.search {
+    height: 201px;
+    text-align: center;
+    background-color: white;
+    border: 2px solid #d3a81b;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border-radius: 5px;
+    padding: 8px 0;
+}
+
+.marka,
+.model {
+    width: 400px;
+    height: 24px;
+    font-size: 15px;
+    outline: none;
+    cursor: pointer;
+    border-radius: 5px;
+    background-image: linear-gradient(white, #e8db99);
+}
+
+.fromYear,
+.toYear {
+    width: 160px;
+    height: 24px;
+    font-size: 15px;
+    outline: none;
+    cursor: pointer;
+    border-radius: 5px;
+    background-image: linear-gradient(white, #e8db99);
+}
+
+.selectYear {
+    width: 400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.search button {
+    width: 160px;
+    font-size: 20px;
+    margin: 0 auto;
+    border: 2px solid #98874c;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    outline: none;
+    background-image: linear-gradient(#beaf79, #b0a376);
+}
+
+button:hover {
+    transform: scale(1.02);
+    border: 2px solid #87763b;
+    background-image: linear-gradient(#ad9e68, #b0a376);
+}
+
+.map {
+    text-align: center;
+}
+
+.social {
+    text-align: center;
+}
+
+.bigFooter {
+    background-color: #252525;
+    color: white;
+    height: 248px;
+}
+
+.bigFooter a {
+    color: white;
+    transition: color 0.25s;
+}
+
+.footerMenu {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 180%;
+    height: 100%;
+}
+
+.footerMenu span {
+    display: block;
+    text-align: center;
+    font-size: 24px;
+}
+
+.footerMenu span a:hover {
+    color: #d3a81b;
+}
+
+.map {
+    height: 100%;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+
+.social {
+    height: 100%;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.social p{
+    font-size: 24px;
+    margin: 0 0 36px 0;
+}
+
+.smallFooter {
+    background-color: #252525;
+    text-align: right;
+    color: #f7f2e1;
+    margin-bottom: 0;
+}
+
+.smallFooter p {
+    display: block;
+    font-size: 18px;
+    margin: 7px 40px 7px 0;
+}
