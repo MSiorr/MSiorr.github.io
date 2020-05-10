@@ -37,12 +37,12 @@ a {
 
 }
 
-#duo {
+#solo {
     display: flex;
     justify-content: center;
 }
 
-#first_duo {
+#duo {
 
     display: flex;
     justify-content: space-around;
@@ -69,6 +69,7 @@ a {
     transform: scale(1.25) rotate(1deg);
     opacity: 1;
     box-shadow: -0.5px -0.5px 15vw 0.1vw rgb(200, 200, 200);
+    z-index: 10;
 }
 
 .plate-right {
@@ -90,6 +91,7 @@ a {
     transform: scale(1.25) rotate(-1deg);
     opacity: 1;
     box-shadow: -0.5px -0.5px 15vw 0.1vw rgb(200, 200, 200);
+    z-index: 10;
 }
 
 .plate-center {
@@ -109,6 +111,7 @@ a {
     transform: scale(1.25);
     opacity: 1;
     box-shadow: -0.5px -0.5px 15vw 0.1vw rgb(200, 200, 200);
+    z-index: 10;
 }
 
 #clicker {
@@ -182,13 +185,21 @@ a {
 
 @media (max-width: 800px) {
 
-    #first_duo {
-        height: 100vh;
+    #container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    #duo {
+        height: 63vh;
         flex-direction: column;
         justify-content: space-around;
         align-items: center;
-        padding-top: calc(60vh - (2 *(0.5 * 75vw)));
-        padding-bottom: calc(60vh - (2 *(0.5 * 75vw)));
+    }
+
+    #solo {
+        height: 30vh;
     }
 
     .plate-left,
@@ -200,8 +211,22 @@ a {
     }
 
     .plate-left:hover,
-    .plate-right:hover
+    .plate-right:hover,
     .plate-center:hover {
         transform: scale(1.25);
+    }
+}
+
+@media (max-width: 750px) {
+
+    #duo {
+        height: 61.5vh;
+    }
+}
+
+@media (max-width: 700px) {
+
+    #duo {
+        height: 60vh;
     }
 }
