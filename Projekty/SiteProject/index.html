@@ -13,20 +13,22 @@
 
     <link rel="icon" type="image/png" href="images/favicon-32.png">
 </head>
-<body>
+<body onload="load()">
     <div class="container_16">
 
         <div class="Top">
-            <div class="grid_14 prefix_1 logo margin_top">
-                <img id="logoImg" src="images/logoEgzotic.png" alt="logo Egzotic Dealers">
-                <div id="lineLogoLeft" ></div>
-                <div id="lineLogoRight"></div>
+            <div class="grid_15 prefix_1 logo margin_top">
+                <a href="index.html">
+                    <img id="logoImg" src="images/logoEgzotic.png" alt="logo Egzotic Dealers">
+                    <div id="lineLogoLeft" ></div>
+                    <div id="lineLogoRight"></div>
+                </a>
             </div>
             <div class="grid_16 menu margin_top">
                 <a class="grid_4 alpha" href="#">NOWOŚCI</a>
                 <a class="grid_4" href="#">SPRZEDAŻ</a>
                 <a class="grid_4" href="#">WYPOŻYCZENIE</a>
-                <a class="grid_4 omega" href="#">O NAS</a>
+                <a class="grid_4 omega" href="oNas.html">O NAS</a>
             </div>
         </div>
 
@@ -55,26 +57,23 @@
                 </div>
                 <div class="article search margin_top">
                     <div class="selectMake">
-                        <select class="marka">
-                            <option value>Wszystkie Marki</option>
-                            <option value="aston_martin">Aston Martin</option>
+                        <select id="marka">
+                            <option value="all">Wszystkie Marki</option>
+                            <option value="astonMartin">Aston Martin</option>
                             <option value="audi">Audi</option>
                             <option value="bugatti">Bugatti</option>
                             <option value="ferrari">Ferrari</option>
-                            <option value="rolls-royce">Rolls-Royce</option>
+                            <option value="rollsRoyce">Rolls-Royce</option>
                         </select>
                     </div>
                     <div class="selectModel">
-                        <select class="model">
-                            <option value>Wszystkie Modele</option>
-                            <option value="ghost">Ghost</option>
-                            <option value="phnatom">Phantom</option>
-                            <option value="wraith">Wraith</option>
+                        <select id="model" disabled>
+                            <option value="all">Wszystkie Modele</option>
                         </select>
                     </div>
                     <div class="selectYear">
                         <div class="selectformYear">
-                            <select class="fromYear">
+                            <select id="fromYear">
                                 <option value>Od każdego roku</option>
                                 <option value="2015">2015</option>
                                 <option value="2016">2016</option>
@@ -84,7 +83,7 @@
                             </select>
                         </div>
                         <div class="selectToYear">
-                            <select class="toYear">
+                            <select id="toYear">
                                 <option value>Do każdego roku</option>
                                 <option value="2015">2015</option>
                                 <option value="2016">2016</option>
@@ -103,34 +102,34 @@
             <div class="grid_14 prefix_1 margin_top">
                 <img src="images/rollse.png" alt="rollse" style="width: 820px; height: 193px;">
             </div>
-            <div class="End">
-                <div class="grid_16 bigFooter margin_top">
-                    <div class="grid_5 alpha footerMenu">
-                        <span><a href="#">NOWOŚCI</a></span>
-                        <span><a href="#">SPRZEDAŻ</a></span>
-                        <span><a href="#">WYPOŻYCZENIE</a></span>
-                        <span><a href="#">O NAS</a></span>
+        </div>
+        <div class="End">
+            <div class="grid_16 bigFooter margin_top">
+                <div class="grid_5 alpha footerMenu">
+                    <span><a href="#">NOWOŚCI</a></span>
+                    <span><a href="#">SPRZEDAŻ</a></span>
+                    <span><a href="#">WYPOŻYCZENIE</a></span>
+                    <span><a href="oNas.html">O NAS</a></span>
+                </div>
+                <div class="grid_5 map">
+                    <div class="mapouter"><div class="gmap_canvas"><iframe width="266" height="200" id="gmap_canvas" src="https://maps.google.com/maps?q=Twardowskiego%2080%2C%2030-312%20Krak%C3%B3w&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://www.embedgooglemap.net/blog/divi-discount-code-elegant-themes-coupon/">alt om divi via elegant themes</a></div><style>.mapouter{position:relative;text-align:right;height:200px;width:266px;}.gmap_canvas {overflow:hidden;background:none!important;height:200px;width:266px;}</style></div>
+                </div>
+                <div class="grid_6 omega social">
+                    <div>
+                        <p>ZNAJDŹ NAS NA</p>
                     </div>
-                    <div class="grid_5 map">
-                        <div class="mapouter"><div class="gmap_canvas"><iframe width="266" height="200" id="gmap_canvas" src="https://maps.google.com/maps?q=Twardowskiego%2080%2C%2030-312%20Krak%C3%B3w&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://www.embedgooglemap.net/blog/divi-discount-code-elegant-themes-coupon/">alt om divi via elegant themes</a></div><style>.mapouter{position:relative;text-align:right;height:200px;width:266px;}.gmap_canvas {overflow:hidden;background:none!important;height:200px;width:266px;}</style></div>
-                    </div>
-                    <div class="grid_6 omega social">
-                        <div>
-                            <p>ZNAJDŹ NAS NA</p>
-                        </div>
-                        <div>
-                            <a href="https://www.youtube.com/"><img src="images/youtube.png" alt="youtube" style="width: 66px; height: 66px;"></a>
-                            <a href="https://www.facebook.com/"><img src="images/facebook.png" alt="facebook" style="width: 66px; height: 66px;"></a>
-                            <a href="https://www.instagram.com/"><img src="images/instagram.png" alt="instagram" style="width: 66px; height: 66px;"></a>
-                            <a href="https://twitter.com/"><img src="images/twitter.png" alt="twitter" style="width: 66px; height: 66px;"></a>
-                        </div>
+                    <div>
+                        <a href="https://www.youtube.com/"><img src="images/youtube.png" alt="youtube" style="width: 66px; height: 66px;"></a>
+                        <a href="https://www.facebook.com/"><img src="images/facebook.png" alt="facebook" style="width: 66px; height: 66px;"></a>
+                        <a href="https://www.instagram.com/"><img src="images/instagram.png" alt="instagram" style="width: 66px; height: 66px;"></a>
+                        <a href="https://twitter.com/"><img src="images/twitter.png" alt="twitter" style="width: 66px; height: 66px;"></a>
                     </div>
                 </div>
-                <div class=" grid_16 smallFooter margin_top">
+            </div>
+            <div class=" grid_16 smallFooter margin_top">
 
-                    <p>2020 &copy; EGZOTIC DEALERS</p>
+                <p>2020 &copy; EGZOTIC DEALERS</p>
 
-                </div>
             </div>
         </div>
     </div>

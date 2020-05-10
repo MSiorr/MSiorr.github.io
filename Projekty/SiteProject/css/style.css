@@ -18,7 +18,8 @@ a {
 }
 
 #lineLogoLeft {
-    border: 1px solid black;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
     width: 1px;
     height: 2px;
     margin: 0;
@@ -27,11 +28,12 @@ a {
     z-index: -1;
     top: 38px;
     left: 469px;
-    transition: width 2s ease-out;
+    transition: width 2.5s ease-out;
 }
 
 #lineLogoRight {
-    border: 1px solid black;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
     width: 1px;
     height: 2px;
     margin: 0;
@@ -39,8 +41,8 @@ a {
     padding: 0;
     position: absolute;
     top: 38px;
-    right: 349px;
-    transition: width 2s ease-out;
+    right: 409px;
+    transition: width 2.5s ease-out;
 }
 
 .margin_top {
@@ -59,8 +61,13 @@ a {
 }
 
 .menu a:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
     border: 2px solid #e4b92c;
+}
+
+.activated {
+    transform: scale(1.05);
+    border: 2px solid #e4b92c !important;
 }
 
 .slider {
@@ -151,8 +158,8 @@ a {
     padding: 8px 0;
 }
 
-.marka,
-.model {
+#marka,
+#model {
     width: 400px;
     height: 24px;
     font-size: 15px;
@@ -162,8 +169,13 @@ a {
     background-image: linear-gradient(white, #e8db99);
 }
 
-.fromYear,
-.toYear {
+#model {
+    background-image: linear-gradient(white, grey);
+    cursor: no-drop;
+}
+
+#fromYear,
+#toYear {
     width: 160px;
     height: 24px;
     font-size: 15px;
@@ -254,6 +266,18 @@ button:hover {
     margin: 0 0 36px 0;
 }
 
+.social a {
+    margin: 0 3px;
+}
+
+.social img {
+    transition: transform 0.3s;
+}
+
+.social img:hover {
+    transform: scale(1.1);
+}
+
 .smallFooter {
     background-color: #252525;
     text-align: right;
@@ -266,3 +290,157 @@ button:hover {
     font-size: 18px;
     margin: 7px 40px 7px 0;
 }
+
+/* oNas */
+
+.space_invisible {
+    height: 1px;
+}
+
+.contact {
+
+    background-color: white;
+    border: 2px solid #d3a81b;
+    border-radius: 15px;
+    background-image: url("../images/WriteToUsBack.png");
+    background-size: cover;
+    background-position: center;
+}
+
+.form {
+
+    display: flex !important;
+    flex-direction: column;
+    justify-content: space-around;
+    color: rgba(245, 245, 245, 0.75);
+    text-align: center;
+}
+
+.form h1 {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin: 20px 0 20px 0;
+    letter-spacing: 5px;
+    font-size: 40px;
+    filter: drop-shadow( 0 0 2px #c2970a);
+
+}
+
+#inputEmail {
+    width: 100%;
+    color: white;
+    overflow: hidden;
+    font-size: 16px;
+    border-radius: 10px;
+    padding: 5px 0 5px 14px;
+    border: none;
+    outline: none;
+    background: rgba(249, 244, 227, 0.2);
+    border: 1px solid #d3a81b;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+#inputEmail::placeholder {
+    color: #cfcfcf;
+}
+
+#Temat {
+    margin-top: 10px;
+    color: white;
+    width: 100%;
+    overflow: hidden;
+    font-size: 16px;
+    border-radius: 10px;
+    padding: 5px 0 5px 9px;
+    border: none;
+    outline: none;
+    background: rgba(249, 244, 227, 0.2);
+    border: 1px solid #d3a81b;
+    cursor: pointer;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+#Temat option {
+    color: black;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+#textAreaInput {
+    margin-top: 10px;
+    color: white;
+    width: 100%;
+    height: 95px;
+    overflow: hidden;
+    font-size: 16px;
+    border-radius: 10px;
+    padding: 5px 0 5px 9px;
+    border: none;
+    outline: none;
+    background: rgba(249, 244, 227, 0.2);
+    border: 1px solid #d3a81b;
+    resize: none;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+#textAreaInput::placeholder {
+    color: #cfcfcf;
+}
+
+#submitBtn {
+    margin-bottom: 20px;
+    margin-top: 30px;
+    color: white;
+    overflow: hidden;
+    font-size: 17px;
+    border-radius: 10px;
+    padding: 5px 0;
+    border: none;
+    outline: none;
+    background: rgba(249, 244, 227, 0.2);
+    border: 1px solid #d3a81b;
+    cursor: pointer;
+    transition: transform .2s;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+#submitBtn:hover {
+    transform: scale(1.07);
+    border: 1px solid #e4b92c;
+}
+
+.openTime {
+    background-color: white;
+    border: 2px solid #d3a81b;
+    border-radius: 15px;
+    display: flex !important;
+    justify-content: space-around;
+    align-items: center;
+    padding: 15px 0;
+}
+
+.openTime p {
+    margin: 0;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    letter-spacing: .5px;
+    filter: drop-shadow(0 0 .5px #8b6f12);
+}
+
+#local,
+#hours,
+#contactHelp {
+    width: 30%;
+    display: inline-block;
+    text-align: center;
+    font-size: 18px;
+
+}
+
+#hours { 
+    font-size: 17px;
+}
+
+.mapBig {
+    border: 2px solid #d3a81b;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
