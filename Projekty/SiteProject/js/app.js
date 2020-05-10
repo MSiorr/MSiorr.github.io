@@ -182,6 +182,9 @@ marka.onchange = () => {
                 model.innerHTML += "<option value=" + models.rollsRoyce[i].id + "> " + models.rollsRoyce[i].name + "</option>";
             }
         }
+    } else {
+        model.innerHTML = "<option value='all'>Wszystkie Modele</option>";
     }
+    
 }
 
