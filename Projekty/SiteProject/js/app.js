@@ -1,7 +1,12 @@
 const lineLogoLeft = document.getElementById('lineLogoLeft');
 const lineLogoRight = document.getElementById('lineLogoRight');
+const lineLogoLeftStart = document.getElementById('lineLogoLeftStart');
+const lineLogoRightStart = document.getElementById('lineLogoRightStart');
 const marka = document.getElementById('marka');
 const model = document.getElementById('model');
+const backgroundStart = document.getElementById('backgroundStart');
+const logoStart = document.getElementById('logoStart');
+const contMain = document.getElementById('contMain');
 
 const slideCarousel = document.querySelector('#slideCarousel');
 const imagesCarousel = document.querySelectorAll('#slideCarousel img');
@@ -48,7 +53,38 @@ models = {
     ]
 };
 
-autoSlider();
+setTimeout(function(){ autoSlider() }, 4500);
+
+window.onload = startLogoLoad();
+
+function startLogoLoad() {
+    lineLogoLeftStart.style.left = "410px";
+    lineLogoRightStart.style.right = "410px";
+    lineLogoLeftStart.style.transition = "width 5s ease-out";
+    lineLogoRightStart.style.transition = "width 5s ease-out";
+    lineLogoLeftStart.style.width = "400px";
+    lineLogoRightStart.style.width = "400px";
+    backgroundStart.style.width = "100%";
+    backgroundStart.style.height = "100%";
+    load();
+    
+    
+    setTimeout(function(){ startLogoOpacity() }, 5000);
+    
+    function startLogoOpacity() {
+        contMain.style.opacity = "100%";
+        backgroundStart.style.transition = "opacity 1.5s";
+        logoStart.style.transition = "opacity 1.8s";
+        backgroundStart.style.opacity = "0%";
+        logoStart.style.opacity = "0%";
+        
+        setTimeout(function(){ backgroundStartDisplay() }, 1500);
+        
+        function backgroundStartDisplay() {
+            backgroundStart.style.display = "none";
+        }
+    }
+}
 
 function load() {
     lineLogoLeft.style.width = "400px";
@@ -62,7 +98,7 @@ slideCarousel.style.transform = 'translateX(' + (-size * counter) + 'px)';
 nextBtn.addEventListener('click', () => {
     if(InputChange == false){
         if(counter >= imagesCarousel.length - 1) return;
-        slideCarousel.style.transition = "transform 1s ease-in-out";
+        slideCarousel.style.transition = "transform 1.25s ease-in-out";
         counter++;
         slideCarousel.style.transform = 'translateX(' + (-size * counter) + 'px)';
         InputChange = true;
@@ -75,7 +111,7 @@ nextBtn.addEventListener('click', () => {
 prevBtn.addEventListener('click', () => {
     if(InputChange == false){
         if(counter <= 0) return;
-        slideCarousel.style.transition = "transform 1s ease-in-out";
+        slideCarousel.style.transition = "transform 1.25s ease-in-out";
         counter--;
         slideCarousel.style.transform = 'translateX(' + (-size * counter) + 'px)';
         InputChange = true;
@@ -110,7 +146,7 @@ function dotChange(number) {
         if(counter == number){ 
             return
         }
-        slideCarousel.style.transition = "transform 1s ease-in-out";
+        slideCarousel.style.transition = "transform 1.25s ease-in-out";
         slideCarousel.style.transform = 'translateX(' + (-size * number) + 'px)';
         counter = number;
         InputChange = true;
@@ -140,12 +176,12 @@ function dotStyle(number) {
 function autoSlider() {
     timer = setInterval(() => {
         if(counter >= imagesCarousel.length - 1) return;
-        slideCarousel.style.transition = "transform 1s ease-in-out";
+        slideCarousel.style.transition = "transform 1.25s ease-in-out";
         counter++;
         slideCarousel.style.transform = 'translateX(' + (-size * counter) + 'px)';
         InputChange = true;
         dotStyle(counter);
-    }, 5000);
+    }, 5250);
 }
 
 marka.onchange = () => {

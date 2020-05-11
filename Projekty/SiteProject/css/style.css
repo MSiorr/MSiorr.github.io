@@ -21,6 +21,7 @@ a {
 #lineLogoLeft {
     border-top: 1px solid black;
     border-bottom: 1px solid black;
+    background-color: black;
     width: 1px;
     height: 2px;
     margin: 0;
@@ -35,6 +36,7 @@ a {
 #lineLogoRight {
     border-top: 1px solid black;
     border-bottom: 1px solid black;
+    background-color: black;
     width: 1px;
     height: 2px;
     margin: 0;
@@ -77,6 +79,7 @@ a {
     height: 220px;
     width: 100%;
     position: relative;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
 }
 
 .slider, .slider * {
@@ -446,3 +449,57 @@ button:hover {
     border-radius: 15px;
 }
 
+#backgroundStart {
+    background-color: #f9f4e3;
+    position: fixed;
+    top:0;
+    left: 0;
+    z-index: 90;
+    width: 100%;
+    height: 100%;
+}
+
+#logoStart{
+    position: fixed;
+    top: calc(50% - 39px);
+    left: calc(50% - 410px);
+    z-index: 100;
+}
+
+#startContainer {
+    position: relative;
+}
+
+
+#lineLogoLeftStart {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    width: 1px;
+    height: 2px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: -1;
+    top: 38px;
+    left: 469px;
+    transition: width 2.5s ease-out;
+}
+
+#lineLogoRightStart {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    width: 1px;
+    height: 2px;
+    margin: 0;
+    z-index: -1;
+    padding: 0;
+    position: absolute;
+    top: 38px;
+    right: 409px;
+    transition: width 2.5s ease-out;
+}
+
+#contMain {
+    opacity: 0%;
+    transition: opacity 2s;
+}
