@@ -79,9 +79,13 @@ function startLogoLoad() {
         logoStart.style.opacity = "0%";
         
         setTimeout(function(){ backgroundStartDisplay() }, 1500);
+        setTimeout(function(){ logoStartDisplay() }, 1800);
         
         function backgroundStartDisplay() {
             backgroundStart.style.display = "none";
+        }
+        function logoStartDisplay() {
+            logoStart.style.display = "none";
         }
     }
 }
