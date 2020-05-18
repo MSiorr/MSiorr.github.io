@@ -36,21 +36,24 @@
             <div class="grid_16">
                 <div class="grid_1 alpha space_invisible"></div>
                 <div class="grid_14 contact margin_top">
+                    <div id="alert"><i class="fas fa-info-circle"></i><span id="messageSend">Wysłano wiadomość</span></div>
                     <div class="grid_14 prefix_3 suffix_3 alpha omega form ">
                         <h1>NAPISZ DO NAS!</h1>
-                        <input type="email" name="email" id="inputEmail" placeholder="Email">
-                        <select id="Temat">
-                            <option value="subject1"> Temat </option>
-                            <option value="subject2" disabled> ------------------------------- </option>
-                            <option value="subject3"> Problem Techniczny </option>
-                            <option value="subject4"> Praca </option>
-                            <option value="subject5"> Reklamacja </option>
-                            <option value="subject6"> Inne... </option>
-                        </select>
-                        <div id="textAreaDiv">
-                            <textarea name="wiadomosc" id="textAreaInput" placeholder="Treść wiadomości..."></textarea>
-                        </div>
-                        <button type="submit" id="submitBtn">WYŚLIJ</button>
+                        <form id="formContact" action="./" method="POST" autocomplete="off">
+                            <input type="email" name="email" id="inputEmail" placeholder="Email">
+                            <select id="Temat">
+                                <option value="subject1"> Temat </option>
+                                <option value="subject2" disabled> ------------------------------- </option>
+                                <option value="subject3"> Problem Techniczny </option>
+                                <option value="subject4"> Praca </option>
+                                <option value="subject5"> Reklamacja </option>
+                                <option value="subject6"> Inne... </option>
+                            </select>
+                            <div id="textAreaDiv">
+                                <textarea name="wiadomosc" id="textAreaInput" placeholder="Treść wiadomości..."></textarea>
+                            </div>
+                            <button type="submit" id="submitBtn">WYŚLIJ</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -109,6 +112,6 @@
             </div>
         </div>
     </div>
-    <script src="js/app.js"></script>
+    <script src="js/oNas.js"></script>
 </body>
 </html>
