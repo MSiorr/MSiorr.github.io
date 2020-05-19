@@ -10,6 +10,7 @@ const contMain = document.getElementById('contMain');
 const fromYear = document.getElementById('fromYear');
 const toYear = document.getElementById('toYear');
 const searchBtn = document.getElementById('searchBtn');
+const searchForm = document.getElementById('searchForm');
 
 const slideCarousel = document.querySelector('#slideCarousel');
 const imagesCarousel = document.querySelectorAll('#slideCarousel img');
@@ -257,4 +258,4 @@ toYear.onchange = () => {
     }
 }
 
-searchBtn.addEventListener("click", () => { event.preventDefault() });
+searchBtn.addEventListener("click", () => { event.preventDefault(), searchForm.reset()});
