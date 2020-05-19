@@ -258,4 +258,13 @@ toYear.onchange = () => {
     }
 }
 
-searchBtn.addEventListener("click", () => { event.preventDefault(), searchForm.reset()});
+searchBtn.addEventListener("click", () => { 
+    event.preventDefault(); 
+    searchForm.reset(); 
+    for (i=1; i<fromYear.length; i++){
+        fromYear[i].style.display = "block";
+    }
+    for (i=1; i<toYear.length; i++){
+        toYear[i].style.display = "block";
+    }
+});
