@@ -261,6 +261,8 @@ toYear.onchange = () => {
 searchBtn.addEventListener("click", () => { 
     event.preventDefault(); 
     model.setAttribute("disabled", "disabled");
+    model.style.backgroundImage = "linear-gradient(white, grey)";
+    model.style.cursor = "no-drop";
     searchForm.reset(); 
     for (i=1; i<fromYear.length; i++){
         fromYear[i].style.display = "block";
