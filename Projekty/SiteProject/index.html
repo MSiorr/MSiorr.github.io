@@ -56,44 +56,48 @@
                     Egzotic Dealers jest <br>egzotycznym sprzedawcą <br>najbardziej luksusowych <br>samochodów po najlepszej cenie. 
                 </div>
                 <div class="article search margin_top">
-                    <div class="selectMake">
-                        <select id="marka">
-                            <option value="all">Wszystkie Marki</option>
-                            <option value="astonMartin">Aston Martin</option>
-                            <option value="audi">Audi</option>
-                            <option value="bugatti">Bugatti</option>
-                            <option value="ferrari">Ferrari</option>
-                            <option value="rollsRoyce">Rolls-Royce</option>
-                        </select>
-                    </div>
-                    <div class="selectModel">
-                        <select id="model" disabled>
-                            <option value="all">Wszystkie Modele</option>
-                        </select>
-                    </div>
-                    <div class="selectYear">
-                        <div class="selectformYear">
-                            <select id="fromYear">
-                                <option value>Od każdego roku</option>
-                                <option value="2015">2015</option>
-                                <option value="2016">2016</option>
-                                <option value="2017">2017</option>
-                                <option value="2018">2018</option>
-                                <option value="2019">2019</option>
+                    <form id="searchForm">
+                        <div class="selectMake">
+                            <select id="marka">
+                                <option value="all">Wszystkie Marki</option>
+                                <option value="astonMartin">Aston Martin</option>
+                                <option value="audi">Audi</option>
+                                <option value="bugatti">Bugatti</option>
+                                <option value="ferrari">Ferrari</option>
+                                <option value="rollsRoyce">Rolls-Royce</option>
                             </select>
                         </div>
-                        <div class="selectToYear">
-                            <select id="toYear">
-                                <option value>Do każdego roku</option>
-                                <option value="2015">2015</option>
-                                <option value="2016">2016</option>
-                                <option value="2017">2017</option>
-                                <option value="2018">2018</option>
-                                <option value="2019">2019</option>
+                        <div class="selectModel">
+                            <select id="model" disabled>
+                                <option value="all">Wszystkie Modele</option>
                             </select>
                         </div>
-                    </div>
-                    <button>SZUKAJ</button>
+                        <div class="selectYear">
+                            <div class="selectformYear">
+                                <select id="fromYear">
+                                    <option value="all">Od każdego roku</option>
+                                    <option value="2014">2014</option>
+                                    <option value="2015">2015</option>
+                                    <option value="2016">2016</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2019">2019</option>
+                                </select>
+                            </div>
+                            <div class="selectToYear">
+                                <select id="toYear">
+                                    <option value="all">Do każdego roku</option>
+                                    <option value="2014">2014</option>
+                                    <option value="2015">2015</option>
+                                    <option value="2016">2016</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2019">2019</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" id="searchBtn">SZUKAJ</button>
+                    </form>
                 </div>
             </div>
             <div class="grid_5 margin_top">

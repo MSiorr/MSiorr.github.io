@@ -7,6 +7,8 @@ const model = document.getElementById('model');
 const backgroundStart = document.getElementById('backgroundStart');
 const logoStart = document.getElementById('logoStart');
 const contMain = document.getElementById('contMain');
+const fromYear = document.getElementById('fromYear');
+const toYear = document.getElementById('toYear');
 
 const slideCarousel = document.querySelector('#slideCarousel');
 const imagesCarousel = document.querySelectorAll('#slideCarousel img');
@@ -56,6 +58,7 @@ models = {
 setTimeout(function(){ autoSlider() }, 4500);
 
 window.onload = startLogoLoad();
+
 
 function startLogoLoad() {
     lineLogoLeftStart.style.left = "410px";
@@ -226,4 +229,29 @@ marka.onchange = () => {
         model.innerHTML = "<option value='all'>Wszystkie Modele</option>";
     }
     
+}
+
+fromYear.onchange = () => {
+
+    dateVal = fromYear.value
+
+    for (i=1; i<toYear.length; i++){
+        toYear[i].style.display = "block";
+        if (parseInt(toYear[i].value) < dateVal) {
+            toYear[i].style.display = "none";
+        } 
+    }
+}
+
+toYear.onchange = () => {
+
+    dateVal = toYear.value
+    console.log(dateVal);
+
+    for (i=1; i<fromYear.length; i++){
+        fromYear[i].style.display = "block";
+        if (parseInt(fromYear[i].value) > dateVal) {
+            fromYear[i].style.display = "none";
+        } 
+    }
 }
