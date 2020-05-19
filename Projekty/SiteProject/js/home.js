@@ -9,6 +9,7 @@ const logoStart = document.getElementById('logoStart');
 const contMain = document.getElementById('contMain');
 const fromYear = document.getElementById('fromYear');
 const toYear = document.getElementById('toYear');
+const searchBtn = document.getElementById('searchBtn');
 
 const slideCarousel = document.querySelector('#slideCarousel');
 const imagesCarousel = document.querySelectorAll('#slideCarousel img');
@@ -255,3 +256,5 @@ toYear.onchange = () => {
         } 
     }
 }
+
+searchBtn.addEventListener("click", () => { event.preventDefault() });
