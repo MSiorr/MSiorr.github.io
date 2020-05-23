@@ -65,8 +65,8 @@ window.onload = startLogoLoad();
 function startLogoLoad() {
     lineLogoLeftStart.style.left = "410px";
     lineLogoRightStart.style.right = "410px";
-    lineLogoLeftStart.style.transition = "width 4s ease-out";
-    lineLogoRightStart.style.transition = "width 4s ease-out";
+    lineLogoLeftStart.style.transition = "width 3.5s ease-out";
+    lineLogoRightStart.style.transition = "width 3.5s ease-out";
     lineLogoLeftStart.style.width = "400px";
     lineLogoRightStart.style.width = "400px";
     backgroundStart.style.width = "100%";
@@ -74,7 +74,7 @@ function startLogoLoad() {
     load();
     
     
-    setTimeout(function(){ startLogoOpacity() }, 4000);
+    setTimeout(function(){ startLogoOpacity() }, 3500);
     
     function startLogoOpacity() {
         contMain.style.opacity = "100%";
