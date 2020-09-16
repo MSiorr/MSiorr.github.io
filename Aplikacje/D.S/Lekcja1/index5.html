@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="libs/jq.js"></script>
+    <style>
+        #div1{
+            background: gray;
+            width: 100px;
+            height: 100px;
+            position: fixed;
+            left: 0;
+            top: 150px;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        $(document).ready(function(){
+
+            // Start
+            var click = 1
+            var left = 0
+            var top = 150
+
+            $("#div1").on("click", function(){
+                if(click % 2 == 1){
+                    left += 50
+                    $("#div1").css("left", left)
+                    click++
+                } else {
+                    top += 50;
+                    $("#div1").css("top", top)
+                    click++
+                }
+            })
+
+            // End
+        })
+    </script>
+</head>
+<body></body>
+    <h1> Na stronie jest div. Każde kliknięcie przemieszcza go - raz o 50 px w prawo raz o 50px w dół </h1>
+
+        <div id="div1"></div>
+</body>
+</html>

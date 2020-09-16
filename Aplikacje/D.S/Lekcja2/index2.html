@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="libs/jq.js"></script>
+    <style>
+        .divLook, .divChild {
+            margin: 1px;
+            display: flex;
+            justify-content: start;
+            text-align: center;
+            font-size: 40px;
+        }
+
+        .divChild{
+            margin-left: 53px;
+            font-size: 38px;
+        }
+
+        .title {
+            background-color: gray;
+            width: 150px;
+            height: 50px;
+            margin: 1px;
+        }
+
+        .addChild {
+            background-color: green;
+            width: 50px;
+            height: 50px;
+            margin: 1px;
+            cursor: pointer;
+        }
+
+        .deleteDiv {
+            background-color: blue;
+            width: 50px;
+            height: 50px;
+            margin: 1px;
+            cursor: pointer;
+        }
+    </style>
+
+    <script>
+
+        $(document).ready(function () {
+
+            //start
+
+            $("#bt1").on("click", function () {
+                $("#main").empty()
+                divCount = $("#select").val()
+
+                for (i = 0; i < divCount; i++) {
+                    var divHome = $("<div>")
+                    divHome.addClass("divHome")
+
+                    var div = $("<div>");
+                    div.addClass("divLook");
+                    var title = $("<div>")
+                    title.addClass("title")
+                    title.html("Parent " + i)
+                    div.append(title)
+
+                    var addChild = $("<div>")
+                    addChild.addClass("addChild")
+                    addChild.html("+")
+                    addChild.data("Count", 0)
+                    addChild.on("click", function () {
+                        var count = $(this).data("Count") + 1
+                        $(this).html(count)
+                        console.log(addChild.data("Count"))
+                        var divChild = $("<div>")
+                        divChild.addClass("divChild")
+
+                        var divChildTitle = $("<div>")
+                        divChildTitle.addClass("title")
+                        divChildTitle.html("Child " + count)
+                        divChild.append(divChildTitle)
+
+                        var divChildDelete = $("<div>")
+                        divChildDelete.addClass("deleteDiv")
+                        divChildDelete.html("X")
+                        divChildDelete.on("click", function () {
+                            var confirmVal = confirm("Usunąć tego child'a ?")
+                            if (confirmVal) {
+                                $(this).parent().remove();
+                            }
+                        })
+                        divChild.append(divChildDelete)
+                        $(this).data("Count", count);
+
+                        $(this).parent().parent().append(divChild);
+                    })
+
+                    div.append(addChild)
+
+                    var deleteDiv = $("<div>")
+                    deleteDiv.addClass("deleteDiv")
+                    deleteDiv.html("X")
+                    deleteDiv.on("click", function () {
+                        var confirmVal = confirm("Usunąć tego div'a ?")
+                        if (confirmVal) {
+                            $(this).parent().parent().remove();
+                        }
+                    })
+                    div.append(deleteDiv)
+
+                    divHome.append(div)
+                    $("#main").append(divHome)
+                }
+            })
+
+            $("#bt2").on("click", function () {
+                $("#main").empty()
+            })
+
+            //end
+
+        })
+
+    </script>
+
+</head>
+
+<body>
+    <button id="bt1">UTWÓRZ MENU</button>
+    <button id="bt2">USUŃ MENU</button>
+    <select id="select">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+    </select>
+
+    <div id="main"></div>
+</body>
+
+</html>
