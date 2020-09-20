@@ -69,16 +69,17 @@
                     addChild.addClass("addChild")
                     addChild.html("+")
                     addChild.data("Count", 0)
+                    addChild.data("ChildIndex", 0)
                     addChild.on("click", function () {
                         var count = $(this).data("Count") + 1
+                        var childIndex = $(this).data("ChildIndex") + 1
                         $(this).html(count)
-                        console.log(addChild.data("Count"))
                         var divChild = $("<div>")
                         divChild.addClass("divChild")
 
                         var divChildTitle = $("<div>")
                         divChildTitle.addClass("title")
-                        divChildTitle.html("Child " + count)
+                        divChildTitle.html("Child " + childIndex)
                         divChild.append(divChildTitle)
 
                         var divChildDelete = $("<div>")
@@ -87,11 +88,20 @@
                         divChildDelete.on("click", function () {
                             var confirmVal = confirm("Usunąć tego child'a ?")
                             if (confirmVal) {
+                                var countV2 = $(this).parent().parent().children(".divLook").children(".addChild").data("Count") - 1
+                                console.log(countV2)
+                                $(this).parent().parent().children(".divLook").children(".addChild").data("Count", countV2)
+                                if(countV2 == 0){
+                                    $(this).parent().parent().children(".divLook").children(".addChild").html("+")
+                                } else {
+                                    $(this).parent().parent().children(".divLook").children(".addChild").html(countV2)
+                                }
                                 $(this).parent().remove();
                             }
                         })
                         divChild.append(divChildDelete)
                         $(this).data("Count", count);
+                        $(this).data("ChildIndex", childIndex);
 
                         $(this).parent().parent().append(divChild);
                     })

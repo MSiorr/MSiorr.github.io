@@ -146,7 +146,7 @@
         setInterval(moveWheel, 30);
 
         function moveWheel(){
-            var posX = 350 + radius * Math.sin(Math.PI * alpha);
+            var posX = 350 + radius * -Math.sin(Math.PI * alpha);
             var posY = 350 + radius * Math.cos(Math.PI * alpha);
 
             imgZad4.style.left = posX + "px"
