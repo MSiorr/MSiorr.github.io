@@ -22,7 +22,7 @@ body{
     left: 0;
     width: 8%;
     max-width: 100px;
-    height: 602px;
+    height: 610px;
     margin-left: 20px;
     line-height: 150%;
     display: flex;
@@ -94,6 +94,6 @@ body{
 @media (max-height: 650px){
     #nav{
         font-size: 10px;
-        height: 558px;
+        height: 580px;
     }
 }
