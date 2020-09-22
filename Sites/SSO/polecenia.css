@@ -22,7 +22,7 @@ body{
     left: 0;
     width: 8%;
     max-width: 100px;
-    height: 685px;
+    height: 688px;
     margin-left: 20px;
     line-height: 150%;
     display: flex;
@@ -32,6 +32,7 @@ body{
     border: 3px solid #39a5f1;
     border-radius: 20px;
     background-color: #1E2225;
+    overflow: hidden;
 }
 #nav a{
     color: whitesmoke;
