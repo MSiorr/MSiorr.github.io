@@ -17,12 +17,12 @@ body{
 #nav{
     position: -webkit-sticky;
     position: sticky;
-    font-size: 12px;
+    font-size: 11px;
     top: 30px;
     left: 0;
     width: 8%;
     max-width: 100px;
-    height: 688px;
+    height: 602px;
     margin-left: 20px;
     line-height: 150%;
     display: flex;
@@ -88,5 +88,12 @@ body{
         border-bottom: 3px solid #39a5f1;
         border-radius: 0;
         margin-bottom: 10px;
+    }
+}
+
+@media (max-height: 650px){
+    #nav{
+        font-size: 10px;
+        height: 558px;
     }
 }
