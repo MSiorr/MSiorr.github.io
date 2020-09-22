@@ -14,15 +14,17 @@ body{
     justify-content: space-between;
     
 }
+#navDiv{
+    width: 10%;
+}
 #nav{
     position: -webkit-sticky;
     position: sticky;
-    font-size: 11px;
+    font-size: calc(1.6vh);
+    padding-bottom: 10px;
     top: 30px;
     left: 0;
-    width: 8%;
     max-width: 100px;
-    height: 620px;
     margin-left: 20px;
     line-height: 150%;
     display: flex;
@@ -88,12 +90,5 @@ body{
         border-bottom: 3px solid #39a5f1;
         border-radius: 0;
         margin-bottom: 10px;
-    }
-}
-
-@media (max-height: 650px){
-    #nav{
-        font-size: 10px;
-        height: 580px;
     }
 }
