@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSO Polecenia</title>
+    <link rel="stylesheet" href="polecenia.css">
+</head>
+<body>
+    <div id="main">
+        <div id="nav">
+            <a href="#1">1.</a>
+            <a href="#2">2.</a>
+            <a href="#3">3.</a>
+            <a href="#4">4.</a>
+            <a href="#5">5.</a>
+            <a href="#6">6.</a>
+            <a href="#7">7.</a>
+            <a href="#8">8.</a>
+            <a href="#9">9.</a>
+            <a href="#10">10.</a>
+            <a href="#11">11.</a>
+            <a href="#12">12.</a>
+            <a href="#13">13.</a>
+            <a href="#14">14.</a>
+            <a href="#15">15.</a>
+            <a href="#16">16.</a>
+            <a href="#17">17.</a>
+            <a href="#18">18.</a>
+            <a href="#19">19.</a>
+            <a href="#20">20.</a>
+            <a href="#21">21.</a>
+            <a href="#22">22.</a>
+            <a href="#23">23.</a>
+            <a href="#24">24.</a>
+            <a href="#25">25.</a>
+            <a href="#26">26.</a>
+            <a href="#27">27.</a>
+            <a href="#28">28.</a>
+            <a href="#29">29.</a>
+            <a href="#30">30.</a>
+            <a href="#31">31.</a>
+            <a href="#32">32.</a>
+            <a href="#33">33.</a>
+            <a href="#34">34.</a>
+            <a href="#35">35.</a>
+            <a href="#36">36.</a>
+            <a href="#37">37.</a>
+        </div>
+        <div id="list">
+            <div class="polecenie">
+                <div class="title" id="1">1.    Uaktywnić menu GRUB</div>
+                <div class="desc">sudo nano /etc/default/grub -&gt; tam:<br>grub_timeout_style=menu/hidden<br>sudo update-grub</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="2">2.	Zmienić czas wyświetlania menu GRUB</div>
+                <div class="desc">sudo nano /etc/default/grub -> tam:<br>grub_timeout=x (x w sekundach)<br>sudo update-grub</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="3">3.	Uruchomić system w trybie recovery</div>
+                <div class="desc">Podczas menu grub: advancedOptions->ubuntu(recovery mode)</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="4">4.	Uaktywnić konto użytkownika root</div>
+                <div class="desc">sudo passwd root<br>su</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="5">5.	Dodać użytkownika student do grupy administratorów oraz zezwolić na wykonywanie poleceń przypisanych do root’a</div>
+                <div class="desc">sudo useradd x<br>
+                    sudo usermod -G sudo x<br>sudo visudo -> tam linijkę<br># user privilege<br>x	ALL=(ALL) NOPASSWD: ALL<br>Lub:<br>ustawienia użytkownika -> typ konta: administrator</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="6">6.	Naprawić bootloader na dysku zawierającym partycję linuxową*</div>
+                <div class="desc">- psucie<br>
+                    sudo aptitude purge grub-pc<br><br>
+                    
+                    - naprawianie<br>
+                    Dodanie iso ubuntu i zbootowanie z niego z liveCD i<br>
+                    Znalezienie partycji z ubunty (ext4 zazwyczaj) - gparted - XY to numer partycji:<br>
+                    sudo mount -t ext4 /dev/sdXY /mnt<br>
+                    sudo mount --bind /dev /mnt/dev &&<br>
+                    sudo mount --bind /dev/pts /mnt/dev/pts &&<br>
+                    sudo mount --bind /proc /mnt/proc &&<br>
+                    sudo mount --bind /sys /mnt/sys<br>
+                    sudo chroot /mnt<br>
+                    grub-install /dev/sdX<br>
+                    grub-install --recheck /dev/sdX<br>
+                    update-grub<br>
+                    exit &&<br>
+                    sudo umount /mnt/sys &&<br>
+                    sudo umount /mnt/proc &&<br>
+                    sudo umount /mnt/dev/pts &&<br>
+                    sudo umount /mnt/dev &&<br>
+                    sudo umount /mnt<br><br>
+                    
+                    Lub:<br>
+                    sudo add-apt-repository ppa:yannubuntu/boot-repair<br>
+                    sudo apt-get update<br>
+                    sudo apt-get install boot-repair<br>
+                    boot-repair<br>
+                    Wklejaj komendy i wybierz dysk /dev/sdaX z ext4</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="7">7.	Dodać dowolne środowisko graficzne np. LXDE, Xfce, KDE Standard </div>
+                <div class="desc">Sprawdzenie środowisk: ls /usr/share/xsessions/<br>Instalacja: sudo apt-get install lxde</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="8">8.	Sprawdzić jakie środowiska graficzne są dostępne w systemie oraz zalogować się na jedno z wybranych środowisk </div>
+                <div class="desc">Lista środowisk: ls /usr/share/xsessions/ lub podczas menu logowania slim klikać F1<br>Wybór: podczas włączania - F1(slim), lub ikonka(lightdm)</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="9">9.	Przełączyć się z trybu graficznego na tryb tekstowy i zalogować się na konto wybranego użytkownika.</div>
+                <div class="desc">Logowanie: su nazwa_użytkownika<br>Z graficznego na tekstowy: Ctrl+Alt+Fx</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="10">10.	W trybie tekstowym załączyć środowisko graficzne</div>
+                <div class="desc">startx - włącza środowisko graficzne</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="11">11.	Przełączyć się na dowolny obszar roboczy</div>
+                <div class="desc">Kliknięcie w pola obszarów roboczych na dolnym pasku lub<br>Alt+Ctrl+Arrow</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="12">12.	W jaki sposób możemy dodawać lub usuwać programy do autostartu</div>
+                <div class="desc">Ustawienia -> programy startowe</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="13">13.	W jaki sposób możemy uruchomić, przeładować, zatrzymać, podać status wybranej usługi </div>
+                <div class="desc">sudo service network-manager[nazwa usługi] stop|start|restart<br>
+                    sudo /etc/init.d/bluetooth status - status bluetooth<br>
+                    systemctl [status|stop|start] nazwa<br>
+                    sudo service --status-all<br>
+                    /etc/init.d - folder z usługami np. bluetooth</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="14">14.	Pokazać uruchomione przez wybranego użytkownika procesy. Wyłączyć dany proces</div>
+                <div class="desc">ps -e -lista procesów<br>kill [PID] - zabija process o podanym pid<br>ps -u Administrator - procesy admina</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="15">15.	Sprawdzić repozytoria sieciowe </div>
+                <div class="desc">sudo nano /etc/apt/sources.list</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="16">16.	Zmienić menedżer logowania (slim)</div>
+                <div class="desc">sudo dpkg-reconfigure slim</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="17">17.	Zmienić ustawienia karty sieciowej, podać jej oznaczenie</div>
+                <div class="desc">sudo ifconfig - info o kartach<br>
+                    sudo ifconfig [nazwa karty - enp0s3] [ip - 192.168.8.123] netmask [maska - 255.0.0.0]<br>
+                    sudo dhclient [interfejs] -v -r -ładuje ustawienia z dhcp na interfejs (pamiętaj potem zresetuj ifcofig down i up)</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="18">18.	Przepuścić przez zaporę sieciową wybraną usługę sieciową.</div>
+                <div class="desc">sudo ufw enable - włącza zaporę<br>
+                    sudo ufw allow/deny [port/protkoół - 53/tcp]	- zasada na port<br>
+                    sudo ufw allow [nazwa usługi - ssh]	- zasada na usługe<br>
+                    sudo ufw status - wyświetla informacje</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="19">19.	Skorzystać z manuala systemowego, wyszukać dane słowo kluczowe</div>
+                <div class="desc">sudo apropos [słowo]<br>man [coś] a potem /[słowo]</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="20">20.	Połączyć się z udostępnionym udziałem Windows</div>
+                <div class="desc">Włączamy menedżer plików i łączymy się po ścieżce smb://nazwa</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="21">21.	W jaki sposób możemy zaktualizować system do nowszej wersji.</div>
+                <div class="desc">sudo apt update<br>sudo aptitude dist-upgrade</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="22">22.	Uruchomić system w trybie pojedynczego użytkownika</div>
+                <div class="desc">Podczas bootowania klikamy 'e'<br>W linijce z linux zmieniamy końcówkę na rw maybe-ubiquity init=/bin/bash</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="23">23.	Zmienić hasło użytkownika administrator bez jego znajomości</div>
+                <div class="desc">Przelogowanie się na roota - su<br>zmiana hasła admina - passwd administrator</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="24">24.	Wyłączyć środowisko graficzne przy starcie systemu*</div>
+                <div class="desc">Tekstowy: sudo systemctl set-default multi-user.target<br>Graficzne: sudo systemctl set-default graphical.target</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="25">25.	Przywrócić ustawienia domyślne panelu Cinnamon</div>
+                <div class="desc">Modyfikacja: Drugi klik na panel i wybieramy modyfikuj panel, ewentualnie opcja w ustawieniach panel<br>Reset: Drugi klik na panel i wybieramy rozwiązywanie problemów -> przywróć ustwienia domyślne</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="26">26.	Przywrócić ustawienia domyślne środowiska Cinnamon</div>
+                <div class="desc">gsettings reset-recursively org.cinnamon<br>+<br>dconf reset -f /</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="27">27.	Zmienić domyślne środowisko graficzne uruchamiane z trybu tekstowego</div>
+                <div class="desc">sudo update-alternatives --config x-session-manager</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="28">28.	Zmień/sprawdź adres serwera DNS</div>
+                <div class="desc">sudo nano /etc/resolv.conf - plik konfiguracyjny<br>Istnieje też opcja zarządzania tym w menu sieć -> dns</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="29">29.	Sprawdź ilość wolnego miejsca w głównym systemie plików</div>
+                <div class="desc">df -h</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="30">30.	Sprawdź czy system plików jest sprawdzany przy starcie systemu</div>
+                <div class="desc">sudo nano /etc/fstab<br>6 kolumna, jeśli 0 - nie, jak 1,2 - tak</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="31">31.	Zaloguj się automatycznie na użytkownika administrator</div>
+                <div class="desc">sudo nano /etc/slim.conf<br>
+                    ustawiamy tam default_user na nazwe i auto_login na yes<br><br>
+                    lub ustawiamy w opcjach autologin i zmieniamy menedżer logowania na lightdm</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="32">32.	Nie pytaj o hasło podczas logowania dla wybranego użytkownika </div>
+                <div class="desc">ustwienia użytkowników -> bez pytania o hasło przy logowaniu i ustawiamy manedżer logowania na lightdm</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="33">33.	Sprawdzić system plików w poszukiwaniu błędów </div>
+                <div class="desc">Z live CD - sudo fsck -r /dev/sda2</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="34">34.	Podaj numer seryjny dysku</div>
+                <div class="desc">lsblk --nodeps  -o name,serial</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="35">35.	Sprawdź czy dany program jest zainstalowany w systemie</div>
+                <div class="desc">dpkg -l | grep [nazwa - boot]</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="36">36.	Odśwież parametry interfejsu sieciowego. Aktywuj, deaktywuj połączenie sieciowe.</div>
+                <div class="desc">ifconfig [nazwa - enp0s3] up|down<br>dhclient [nazwa - enp0s3] -r -v</div>
+            </div>
+            <div class="polecenie">
+                <div class="title" id="37">37.	Podać specyfikację karty graficznej</div>
+                <div class="desc">lshw -c display</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
