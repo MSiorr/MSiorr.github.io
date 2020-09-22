@@ -21,6 +21,7 @@ body{
     border-radius: 20px;
     background-color: #1E2225;
     padding: 10px;
+    transition: background-color 0.2s;
 }
 a{
     color: whitesmoke;
