@@ -53,10 +53,10 @@ body{
 .option:hover{
     background-color:  #2F3336;
 }
-#apiSys_mm{
+#apiKli_mm{
     border-right: 2px solid #39a5f1;
 }
-#apiSys_ds{
+#apiKli_ds{
     border-left: 2px solid #39a5f1;
 }
 
