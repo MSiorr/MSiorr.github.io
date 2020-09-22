@@ -44,7 +44,7 @@ body{
     cursor: pointer;
     text-decoration: none;
     color: whitesmoke;
-    transition: background-color 0.21s;
+    transition: background-color 0.2s;
 }
 .option:visited{
     text-decoration: none;
