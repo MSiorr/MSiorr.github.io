@@ -37,6 +37,7 @@
             background-size: 100%;
             margin-left: 10px;
             box-shadow: inset 0 0 20px black;
+            overflow: hidden;
         }
 
         #menuBack {
@@ -186,6 +187,7 @@
             })
             animateRocket()
 
+            $("#checkFly").prop("checked", false);
             $("#checkFly").on("click", function () {
                 calculateDirection = ($("#checkFly").prop("checked"))
             })
