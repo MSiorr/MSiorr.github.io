@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statki</title>
+    <!-- http://wklejto.pl/856371 -->
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: monospace;
+            font-size: 20px;
+        }
+
+        body {
+            background-color:gray;
+        }
+
+        #arena {
+            border: 0.5px solid black;
+        }
+
+        .divRow {
+            display: flex;
+            justify-content: start;
+        }
+
+        .field {
+            border: 0.5px solid black;
+            width: 25px;
+            height: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        var ships = [[1, 4], [2, 3], [3, 2], [4, 1]];
+        // var ships = [[1, 4], [2, 3]];
+        var shipsPosition = [];
+        var arenaSize = 10;
+        var arena2DTable = [];
+        var arena2DTableCopy = [];
+
+        //create arena
+
+        var arena = document.createElement("div")
+        arena.id = "arena"
+        arena.style.width = arenaSize * 25 + "px"
+
+        for (let i = 0; i < arenaSize; i++) {
+            var divRow = document.createElement("div")
+            divRow.classList.add("divRow")
+            for (let j = 0; j < arenaSize; j++) {
+                var div = document.createElement("div")
+                div.classList.add("field")
+                div.id = "[" + i + "," + j + "]"
+                divRow.appendChild(div)
+            }
+            arena.appendChild(divRow)
+        }
+        document.body.appendChild(arena)
+
+        //create 2D Table
+
+        for (let i = 0; i < arenaSize + 2; i++) {
+            arena2DTable.push([])
+            for (let j = 0; j < arenaSize + 2; j++) {
+                arena2DTable[i][j] = 0
+            }
+        }
+
+        //place enemy ships
+
+        for (let i = 0; i < ships.length; i++) {
+            for (let j = 0; j < ships[i][0]; j++) {
+                var shipPlaced = false;
+                while (!shipPlaced) {
+                    var canPlaceShip = true;
+                    var x = Math.ceil(Math.random() * (10 - ships[i][1] + 1));
+                    var y = Math.ceil(Math.random() * (10 - ships[i][1] + 1));
+                    var direction = Math.round(Math.random());  // 0 - row ; 1 - column
+                    for (let k = 0; k < ships[i][1]; k++) {
+                        if (direction == 0) {
+                            if (arena2DTable[x][y + k] == 1 || arena2DTable[x][y + k] == 2) {
+                                canPlaceShip = false;
+                                break;
+                            } else {
+                                canPlaceShip = true;
+                            }
+                        } else {
+                            if (arena2DTable[x + k][y] == 1 || arena2DTable[x + k][y] == 2) {
+                                canPlaceShip = false;
+                                break;
+                            } else {
+                                canPlaceShip = true;
+                            }
+                        }
+                    }
+                    if (canPlaceShip) {
+                        for (let l = 0; l < ships[i][1]; l++) {
+                            if (direction == 0) {
+                                arena2DTable[x][y + l] = 1
+                                if (l == 0) {
+                                    arena2DTable[x - 1][(y + l) - 1] = 2
+                                    arena2DTable[x][(y + l) - 1] = 2
+                                    arena2DTable[x + 1][(y + l) - 1] = 2
+                                }
+                                if (l == ships[i][1] - 1) {
+                                    arena2DTable[x - 1][(y + l) + 1] = 2
+                                    arena2DTable[x][(y + l) + 1] = 2
+                                    arena2DTable[x + 1][(y + l) + 1] = 2
+                                }
+                                arena2DTable[x - 1][y + l] = 2
+                                arena2DTable[x + 1][y + l] = 2
+                            } else {
+                                arena2DTable[x + l][y] = 1
+                                if (l == 0) {
+                                    arena2DTable[(x + l) - 1][y - 1] = 2
+                                    arena2DTable[(x + l) - 1][y] = 2
+                                    arena2DTable[(x + l) - 1][y + 1] = 2
+                                }
+                                if (l == ships[i][1] - 1) {
+                                    arena2DTable[(x + l) + 1][y - 1] = 2
+                                    arena2DTable[(x + l) + 1][y] = 2
+                                    arena2DTable[(x + l) + 1][y + 1] = 2
+                                }
+                                arena2DTable[x + l][y - 1] = 2
+                                arena2DTable[x + l][y + 1] = 2
+                            }
+                        }
+                        shipPlaced = true;
+                    }
+                }
+            }
+        }
+
+        //Draw 2D Table on screen and add ships to arena
+
+        for (let i = 0; i < arena2DTable.length; i++) {
+            for (let j = 0; j < arena2DTable.length; j++) {
+                if (arena2DTable[i][j] == 1) {
+                    console.log("Ship: " + i + " " + j)
+                    document.getElementById("[" + (i - 1) + "," + (j - 1) + "]").style.backgroundColor = "red"
+                }
+            }
+        }
+
+        // var test = document.createElement("div")
+        // for (let i = 0; i < arena2DTable.length; i++) {
+        //     var textOut = "";
+        //     for (let j = 0; j < arena2DTable.length; j++) {
+        //         textOut += arena2DTable[i][j] + " "
+        //         if (arena2DTable[i][j] == 1) {
+        //             console.log("Ship: " + i + " " + j)
+        //             document.getElementById("[" + (i - 1) + "," + (j - 1) + "]").style.backgroundColor = "red"
+        //         }
+        //     }
+        //     test.innerHTML += "<br>" + textOut
+        // }
+        // document.body.appendChild(test)
+
+
+
+    </script>
+</body>
+
+</html>
+
