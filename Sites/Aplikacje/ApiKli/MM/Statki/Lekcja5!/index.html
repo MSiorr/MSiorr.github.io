@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statki</title>
+    <!-- http://wklejto.pl/856371 -->
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: monospace;
+            font-size: 20px;
+        }
+
+        body {
+            background-color: gray;
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        #mainDiv {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        #mainArenaDiv {
+            width: 80%;
+            height: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .arena {
+            border: 2px solid black;
+        }
+
+        .divRow {
+            display: flex;
+            justify-content: start;
+        }
+
+        .pcField,
+        .playerField {
+            border: 0.5px solid black;
+            width: 25px;
+            height: 25px;
+        }
+
+        #menuShip {
+            padding: 20px;
+            border: 2px solid black;
+            box-shadow: 0 0 5px black;
+        }
+
+        .shipDiv {
+            border: 1px solid black;
+            background-color: gray;
+            display: flex;
+            justify-content: start;
+            margin-bottom: 10px;
+        }
+
+        .shipDiv:hover {
+            background-color: purple;
+            cursor: pointer;
+        }
+
+        .shipBlock {
+            border: 0.5px solid black;
+            width: 25px;
+            height: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        var ships = [[1, 4], [2, 3], [3, 2], [4, 1]];  // [Count, Length]
+        var menuShips = [[1, 4], [2, 3], [3, 2], [4, 1]];
+        var playerShips = [];
+        var shipsPosition = [];
+        var blueShipDetect = [];
+        var playerFieldList;
+        var arenaSize = 10;
+        var arena2DTable = [];
+        var playerArena2DTable = [];
+        var players = 2;
+        var selectedShip = [4, 1];
+
+        var mainDiv = document.createElement("div")
+        mainDiv.id = "mainDiv"
+        document.body.appendChild(mainDiv)
+
+
+        // Add menu with player ships
+
+        var mainArenaDiv = document.createElement("div")
+        mainArenaDiv.id = "mainArenaDiv"
+
+        var menuShip = document.createElement("div")
+        menuShip.id = "menuShip";
+        for (let i = 0; i < ships.length; i++) {
+            for (let j = 0; j < ships[i][0]; j++) {
+                var shipDiv = document.createElement("div")
+                shipDiv.classList.add("shipDiv");
+                for (let k = 0; k < ships[i][1]; k++) {
+                    var shipBlock = document.createElement("div");
+                    shipBlock.classList.add("shipBlock")
+                    shipDiv.appendChild(shipBlock)
+                }
+                shipDiv.style.width = shipDiv.children.length * 25 + "px"
+                shipDiv.id = "Ship[" + shipDiv.children.length + "," + (j + 1) + "]";
+                shipDiv.addEventListener("click", function () {
+                    if (selectedShip != null) {
+                        document.getElementById("Ship[" + selectedShip.toString() + "]").style.removeProperty("background-color")
+                    }
+                    selectedShip = eval((this.id).substr(4))
+                    this.style.backgroundColor = "blue"
+                })
+                menuShip.appendChild(shipDiv);
+            }
+        }
+        mainDiv.appendChild(menuShip)
+        menuHeight = menuShip.offsetHeight;
+        menuWidth = menuShip.offsetWidth;
+        menuShip.style.height = menuHeight + "px";
+        menuShip.style.width = menuWidth + "px";
+
+        document.getElementById("Ship[4,1]").style.backgroundColor = "blue";
+
+        mainDiv.addEventListener("contextmenu", function(){
+            event.preventDefault();
+        })
+
+
+        //create arenas
+
+        for (let a = 0; a < players; a++) {
+            var arena = document.createElement("div")
+            arena.classList.add("arena");
+            arena.style.width = arenaSize * 25 + "px"
+            for (let i = 0; i < arenaSize; i++) {
+                var divRow = document.createElement("div")
+                divRow.classList.add("divRow")
+                for (let j = 0; j < arenaSize; j++) {
+                    var div = document.createElement("div")
+                    if (a == 0) {
+                        div.id = "player[" + i + "," + j + "]"
+                        div.classList.add("playerField")
+                    } else {
+                        div.id = "pc[" + i + "," + j + "]"
+                        div.classList.add("pcField")
+                    }
+                    divRow.appendChild(div)
+                }
+                arena.appendChild(divRow)
+            }
+            mainArenaDiv.appendChild(arena)
+        }
+        mainDiv.appendChild(mainArenaDiv)
+
+
+        //create 2D Tables
+
+        for (let i = 0; i < arenaSize + 2; i++) {
+            arena2DTable.push([])
+            playerArena2DTable.push([])
+            for (let j = 0; j < arenaSize + 2; j++) {
+                arena2DTable[i][j] = 0
+                playerArena2DTable[i][j] = 0
+            }
+        }
+
+
+        //place enemy ships
+
+        for (let i = 0; i < ships.length; i++) {
+            for (let j = 0; j < ships[i][0]; j++) {
+                var shipPlaced = false;
+                while (!shipPlaced) {
+                    var canPlaceShip = true;
+                    var direction = Math.round(Math.random());  // 0 - row ; 1 - column
+                    if (direction == 0) {
+                        var x = Math.ceil(Math.random() * 10);
+                        var y = Math.ceil(Math.random() * (10 - ships[i][1] + 1));
+                    } else {
+                        var x = Math.ceil(Math.random() * (10 - ships[i][1] + 1));
+                        var y = Math.ceil(Math.random() * 10);
+                    }
+                    if (x > 0 && y > 0) {
+                        for (let k = 0; k < ships[i][1]; k++) {
+                            if (direction == 0) {
+                                if (arena2DTable[x][y + k] == 1 || arena2DTable[x][y + k] == 2) {
+                                    canPlaceShip = false;
+                                    break;
+                                } else {
+                                    canPlaceShip = true;
+                                }
+                            } else {
+                                if (arena2DTable[x + k][y] == 1 || arena2DTable[x + k][y] == 2) {
+                                    canPlaceShip = false;
+                                    break;
+                                } else {
+                                    canPlaceShip = true;
+                                }
+                            }
+                        }
+                        if (canPlaceShip) {
+                            shipContour(x, y, ships[i][1], direction, arena2DTable)
+                            shipPlaced = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        // Draw 1 and 2 in 2DTable
+
+        function shipContour(x, y, shipLen, direction, table) {
+            for (let i = 0; i < shipLen; i++) {
+                if (direction == 0) {
+                    table[x][y + i] = 1
+                    if (i == 0) {
+                        table[x - 1][(y + i) - 1] = 2
+                        table[x][(y + i) - 1] = 2
+                        table[x + 1][(y + i) - 1] = 2
+                    }
+                    if (i == shipLen - 1) {
+                        table[x - 1][(y + i) + 1] = 2
+                        table[x][(y + i) + 1] = 2
+                        table[x + 1][(y + i) + 1] = 2
+                    }
+                    table[x - 1][y + i] = 2
+                    table[x + 1][y + i] = 2
+                } else {
+                    table[x + i][y] = 1
+                    if (i == 0) {
+                        table[(x + i) - 1][y - 1] = 2
+                        table[(x + i) - 1][y] = 2
+                        table[(x + i) - 1][y + 1] = 2
+                    }
+                    if (i == shipLen - 1) {
+                        table[(x + i) + 1][y - 1] = 2
+                        table[(x + i) + 1][y] = 2
+                        table[(x + i) + 1][y + 1] = 2
+                    }
+                    table[x + i][y - 1] = 2
+                    table[x + i][y + 1] = 2
+                }
+            }
+        }
+
+
+        //Draw 2D Table on screen and add ships to arena
+
+        for (let i = 0; i < arena2DTable.length; i++) {
+            for (let j = 0; j < arena2DTable.length; j++) {
+                if (arena2DTable[i][j] == 1) {
+                    document.getElementById("pc[" + (i - 1) + "," + (j - 1) + "]").style.backgroundColor = "red"
+                }
+            }
+        }
+
+        // Add events to player fields 
+
+        playerFieldList = document.getElementsByClassName("playerField")
+        for (let i = 0; i < playerFieldList.length; i++) {
+            var shipDirection = 0;
+            playerFieldList[i].addEventListener("mouseover", function (e) {
+                if (selectedShip != null) {
+                    shipDisplay(this, e.type);
+                }
+            })
+            playerFieldList[i].addEventListener("mouseout", function (e) {
+                if (selectedShip != null) {
+                    shipDisplay(this, e.type);
+                }
+            })
+            playerFieldList[i].addEventListener("contextmenu", function (event) {
+                if (selectedShip != null) {
+                    event.preventDefault();
+                    shipDisplay(this, "mouseout");
+                    if (shipDirection == 0) {
+                        shipDirection = 1;
+                    } else {
+                        shipDirection = 0;
+                    }
+                    shipDisplay(this, "mouseover");
+                }
+
+            })
+            playerFieldList[i].addEventListener("click", function () {
+                if (this.classList.contains("blueShip") && selectedShip == null) {
+                    pickUpTheShip(this);
+                } else if (selectedShip != null) {
+                    placeShip(this)
+                }
+            })
+        }
+
+        // display ship spirit on arena (green => can place; red = can't place)
+
+        function shipDisplay(element, event) {
+
+            var shipLength = selectedShip[0];
+            var offset = 0
+            if (event == "mouseover") {
+                element.style.cursor = "pointer";
+                var displayColor = "green";
+            } else {
+                element.style.cursor = "default";
+                var displayColor = "transparent";
+            }
+            var idEval = eval(element.id.substr(6))
+            if (shipDirection == 0) {
+                if (idEval[1] + shipLength - 1 >= 10) {
+                    offset = (idEval[1] + shipLength - 1) - 9
+                }
+
+                if (event == "mouseover") {
+                    for (let i = 0; i < shipLength; i++) {
+                        if (playerArena2DTable[idEval[0] + 1][idEval[1] + (i - offset) + 1] == 1 || playerArena2DTable[idEval[0] + 1][idEval[1] + (i - offset) + 1] == 2) {
+                            displayColor = "red";
+                            break;
+                        } else {
+                            displayColor = "green";
+                        }
+
+                    }
+                }
+
+                for (let j = 0; j < shipLength; j++) {
+                    eID = idEval[0].toString() + (idEval[1] + (j - offset)).toString();
+                    playerFieldList[parseInt(eID)].style.backgroundColor = displayColor;
+                }
+            }
+
+            else {
+                if (idEval[0] + shipLength - 1 >= 10) {
+                    var offset = (idEval[0] + shipLength - 1) - 9
+                }
+
+                if (event == "mouseover") {
+                    for (let i = 0; i < shipLength; i++) {
+                        if (playerArena2DTable[idEval[0] + (i - offset) + 1][idEval[1] + 1] == 1 || playerArena2DTable[idEval[0] + (i - offset) + 1][idEval[1] + 1] == 2) {
+                            displayColor = "red";
+                            break;
+                        } else {
+                            displayColor = "green";
+                        }
+
+                    }
+                }
+
+                for (let j = 0; j < shipLength; j++) {
+                    var eID = (idEval[0] + (j - offset)).toString() + idEval[1].toString();
+                    playerFieldList[parseInt(eID)].style.backgroundColor = displayColor;
+                }
+            }
+            var blueShips = document.getElementsByClassName("blueShip");
+            for (let i = 0; i < blueShips.length; i++) {
+                if (event == "mouseout")
+                    blueShips[i].style.backgroundColor = "blue";
+                blueShips[i].style.cursor = "pointer";
+            }
+        }
+
+        // place ship on arena
+
+        function placeShip(element) {
+            if (element.style.backgroundColor == "green") {
+                var shipLength = selectedShip[0]
+                var elementID = eval(element.id.substr(6));
+                var offset = 0
+                var conXY;
+                var variables = [];
+                if (shipDirection == 0) {
+                    conXY = elementID[0];
+
+                    if (elementID[1] + shipLength - 1 >= 10) {
+                        offset = (elementID[1] + shipLength - 1) - 9
+                    }
+
+                    for (let i = 0; i < shipLength; i++) {
+                        var eID = elementID[0].toString() + (elementID[1] + (i - offset)).toString()
+                        playerFieldList[parseInt(eID)].style.backgroundColor = "blue";
+                        playerFieldList[parseInt(eID)].style.cursor = "pointer"
+                        playerFieldList[parseInt(eID)].classList.add("blueShip");
+                        playerFieldList[parseInt(eID)].classList.add("placedShip[" + selectedShip[0] + "," + selectedShip[1] + "]");
+                        variables.push([elementID[0], elementID[1] + (i - offset)])
+                    }
+                    shipContour(conXY + 1, elementID[1] - offset + 1, shipLength, shipDirection, playerArena2DTable)
+                } else {
+                    conXY = elementID[1];
+
+                    if (elementID[0] + shipLength - 1 >= 10) {
+                        offset = (elementID[0] + shipLength - 1) - 9
+                    }
+
+                    for (let i = 0; i < shipLength; i++) {
+                        var eID = (elementID[0] + (i - offset)).toString() + elementID[1].toString()
+                        playerFieldList[parseInt(eID)].style.backgroundColor = "blue";
+                        playerFieldList[parseInt(eID)].style.cursor = "pointer"
+                        playerFieldList[parseInt(eID)].classList.add("blueShip");
+                        playerFieldList[parseInt(eID)].classList.add("placedShip[" + selectedShip[0] + "," + selectedShip[1] + "]");
+                        variables.push([elementID[0] + (i - offset), elementID[1]])
+                    }
+                    shipContour(elementID[0] - offset + 1, conXY + 1, shipLength, shipDirection, playerArena2DTable)
+                }
+                playerShips.push({
+                    name: "placedShip[" + selectedShip[0] + "," + selectedShip[1] + "]",
+                    len: shipLength + offset,
+                    direct: shipDirection,
+                    constXorY: conXY,
+                    variabXorY: variables
+                })
+
+                document.getElementById("Ship[" + selectedShip[0] + "," + selectedShip[1] + "]").style.display = "none";
+                selectedShip = null;
+                shipDirection = 0;
+            }
+        }
+
+        // Pick up the ship on click when placed on arena
+
+        function pickUpTheShip(element) {
+            var wholeShip;
+            var toPick;
+            var contours = [];
+            for (let i = 0; i < element.classList.length; i++) {
+                if (element.classList[i].substr(0, 10) == "placedShip") {
+                    wholeShip = document.getElementsByClassName(element.classList[i]);
+                    toPick = element.classList[i].substr(10);
+                    for (let j = 0; j < playerShips.length; j++) {
+                        if (playerShips[j].name == element.classList[i]) {
+                            playerShips.splice(j, 1);
+                        }
+                    }
+                }
+            }
+            var toDeleteLength = wholeShip.length;
+            for (let i = 0; i < toDeleteLength; i++) {
+                contours.push(eval(wholeShip[0].id.substr(6)))
+                wholeShip[0].style.backgroundColor = "transparent";
+                wholeShip[0].style.cursor = "default";
+                wholeShip[0].classList.remove("blueShip");
+                wholeShip[0].classList.remove("placedShip" + toPick);
+            }
+            document.getElementById("Ship" + toPick).style.display = "flex";
+            selectedShip = eval(toPick);
+
+            contours = contours.sort();
+
+            deleteContour(contours, playerArena2DTable);
+            shipDisplay(element, "mouseover");
+            for (let i = 0; i < playerShips.length; i++) {
+                if (playerShips[i].direct == 0) {
+                    shipContour(playerShips[i].constXorY + 1, playerShips[i].variabXorY[0][1] + 1, playerShips[i].len, playerShips[i].direct, playerArena2DTable)
+                } else {
+                    shipContour(playerShips[i].variabXorY[0][0] + 1, playerShips[i].constXorY + 1, playerShips[i].len, playerShips[i].direct, playerArena2DTable)
+                }
+            }
+        }
+
+        // Delete 1 and 2 on 2DTable while clicking and picking up the ship
+
+        function deleteContour(elements, table) {
+            var contourDirection;
+            if (elements[0][0] == elements[elements.length - 1][0]) {
+                contourDirection = 0;
+            } else {
+                contourDirection = 1;
+            }
+            var startContour = elements[0];
+
+            for (let i = 0; i < elements.length + 2; i++) {
+                if (contourDirection == 0) {
+                    table[startContour[0]][startContour[1] + i] = 0;
+                    table[startContour[0] + 1][startContour[1] + i] = 0;
+                    table[startContour[0] + 2][startContour[1] + i] = 0;
+
+                } else {
+                    table[startContour[0] + i][startContour[1]] = 0;
+                    table[startContour[0] + i][startContour[1] + 1] = 0;
+                    table[startContour[0] + i][startContour[1] + 2] = 0;
+                }
+            }
+            shipDirection = contourDirection;
+        }
+    </script>
+</body>
+
+</html>
