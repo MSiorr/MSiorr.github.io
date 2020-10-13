@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="libs/jq.js"></script>
+    <style>
+        .divLook{
+            width: 100px;
+            height: 100px;
+            color: white;
+            background-color: blue;
+            margin: 1px;
+        }
+    </style>
+
+    <script>
+
+        $(document).ready(function(){
+            
+            //start
+
+            $("#bt1").on("click", function(){
+                $("#main").empty()
+                divCount = $("#select").val()
+
+                for(i=0; i<divCount; i++){
+                    // var div = $("<div id=div" + i + ">")
+                    var div = $("<div>")
+                    div.addClass("divLook")
+                    div.on("click", function(){
+                        var confirmVal = confirm("Usunąć tego div'a ?")
+                        if(confirmVal){
+                            $(this).remove();
+                        }
+                    })
+                    div.html(i)
+                    $("#main").append(div)
+                }
+            })
+
+            $("#bt2").on("click", function(){
+                $("#main").empty()
+            })
+
+            //end
+
+        })
+
+    </script>
+
+</head>
+<body>
+    <button id="bt1">UTWÓRZ MENU</button>
+    <button id="bt2">USUŃ MENU</button>
+    <select id="select">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+    </select>
+
+    <div id="main"></div>
+</body>
+</html>

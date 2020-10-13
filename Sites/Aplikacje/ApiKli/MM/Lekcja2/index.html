@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: #2F3336;
+            color: whitesmoke;
+        }
+        button{
+            background-color: transparent;
+            color:  #39a5f1;
+            font-size: 20px;
+            border-radius: 10px;
+            margin: 5px;
+            border: 3px solid  #39a5f1;
+        }
+        button:hover{
+            background-color: #3F4447;
+            cursor: pointer;
+        }
+        button:focus{
+            outline: none;
+        }
+        .underline {
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        document.write("<button id=\"zad1\">Zadanie 1</button>");
+        document.write("<button id=\"zad2\">Zadanie 2</button>");
+        document.write("<button id=\"zad3\">Zadanie 3</button>");
+        document.write("<button id=\"zad4\">Zadanie 4</button>");
+
+        // ZADANIE 1
+        document.write("<br><br>")
+        document.write("<div id=\"zad1Answer\"></div>")
+        document.getElementById("zad1").addEventListener("click", function () {
+            var text1 = prompt("Podaj zdanie: ", "Jestem przykładowym zdaniem, które ma samogłoski małe i SAMOGŁOSKI DUŻE. POLSKIE ĄĘ TEŻ DZIAŁA")
+            var respond1 = text1;
+            var respond2 = "";
+            text1 = text1.toLowerCase();
+
+            var vowelList = ["a", "ą", "e", "ę", "i", "o", "u", "y", "ó"]
+            var indexList = []
+
+            for (i = 0; i < text1.length; i++) {
+                for (j = 0; j < vowelList.length; j++) {
+                    if (text1[i] == vowelList[j]) {
+                        indexList.push(i)
+                    }
+                }
+            }
+
+            var redVal = 0;
+            for (i = 0; i < text1.length; i++) {
+                if (i == indexList[redVal]) {
+                    redVal++;
+                    respond2 += respond1[i].bold().fontcolor("red");
+                } else {
+                    respond2 += respond1[i];
+                }
+            }
+            document.getElementById("zad1Answer").innerHTML = "<h2> Zadanie 1 </h2>" + respond2;
+        })
+
+        //ZADANIE 2
+        var tablica1;
+        document.getElementById("zad2").addEventListener("click", function () {
+            tablica1 = prompt("Podaj tablicę: ", "[1, 2, 3, 5, 7, 6, 9]");
+            tablica1 = eval(tablica1);
+            console.log("Zadanie 2");
+
+            var tablicaOut = [];
+
+            if (tablica1 != null) {
+                console.log("Podana tablica:");
+                console.log(tablica1);
+                var valPrzesuniecia = prompt("rotacja: p - prawo, l - lewo, k - Koniec np. p1");
+            } else {
+                console.log("Nie podano tablicy");
+            }
+
+            while (true) {
+                if (valPrzesuniecia != "k" && valPrzesuniecia != null && valPrzesuniecia != "") {
+                    console.log("");
+                    var direction = valPrzesuniecia[0];
+                    var count = parseInt(valPrzesuniecia.substr(1));
+                    if (direction == "p" || direction == "l") {
+                        console.log("Polecenie: " + valPrzesuniecia);
+                    }
+
+                    for (i = 0; i < count; i++) {
+                        // console.log("----------" + (i + 1) + "----------")
+
+                        if (direction == "p") {
+                            for (j = 0; j < tablica1.length; j++) {
+                                if (j == tablica1.length - 1) {
+                                    tablicaOut[0] = tablica1[tablica1.length - 1];
+                                } else {
+                                    tablicaOut[j + 1] = tablica1[j];
+                                }
+                            }
+                        } else if (direction == "l") {
+                            for (j = 0; j < tablica1.length; j++) {
+                                if (j == tablica1.length - 1) {
+                                    tablicaOut[j] = tablica1[0];
+                                } else {
+                                    tablicaOut[j] = tablica1[j + 1];
+                                }
+
+                            }
+                        }
+                        tablica1 = Array.from(tablicaOut);
+                        console.log(tablica1);
+                    }
+                    var valPrzesuniecia = prompt("rotacja: p - prawo, l - lewo, k - Koniec np. p1");
+
+                } else {
+                    break;
+                }
+            }
+        })
+
+        // ZADANIE 3
+        var textZad3;
+        document.write("<br><br>")
+        document.write("<div id=\"zad3Answer\"></div>")
+        document.getElementById("zad3").addEventListener("click", function () {
+            textZad3 = prompt("Podaj tekst:", "ten testowy tekst te słowa testowe testuje: te, ten, Bartek, potencjał, plater. Te.");
+            var storedText = textZad3;
+            var outputText = "";
+            textZad3 = textZad3.toLowerCase();
+            var searchWord = prompt("Podaj szukane słowo", "te");
+            searchWord = searchWord.toLowerCase();
+            var tablePunctuation = [" ", ",", ".", undefined]
+            var tableFound = [];
+
+            for (i = 0; i < textZad3.length; i++) {
+                if (textZad3[i] == searchWord[0]) {
+                    if (textZad3.substr(i, searchWord.length) == searchWord && tablePunctuation.includes(textZad3[i + searchWord.length]) && tablePunctuation.includes(textZad3[i - 1])) {
+                        tableFound.push(i)
+                    }
+                }
+            }
+
+            var underLine = 0
+            for (i = 0; i < storedText.length; i++) {
+                if (i == tableFound[underLine]) {
+                    outputText += "<span class=\"underline\">" + storedText.substr(i, searchWord.length) + "</span>";
+                    i += searchWord.length - 1
+                    underLine++;
+                } else {
+                    outputText += storedText[i]
+                }
+            }
+            document.getElementById("zad3Answer").innerHTML = "<h2> Zadanie 3 </h2>" + outputText;
+        })
+
+
+        // ZADANIE 4
+
+        var textZad4;
+        document.write("<br><br>")
+        document.write("<div id=\"zad4Answer\"></div>")
+        document.getElementById("zad4").addEventListener("click", function () {
+            textZad4 = prompt("Podaj tekst: ", ":D, a, a, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vitae tempor velit. Sed et lacus eget leo interdum ornare. Fusce pulvinar cursus tellus. Donec vel nibh finibus, rhoncus est vitae, tempor nibh. Aliquam nec enim sit amet leo eleifend vulputate eget et ipsum. In sit amet lacus scelerisque, porttitor velit ut, gravida nisl. Nunc a varius est. Vestibulum eleifend, velit in accumsan luctus, Tadeusz, Tadeusz, Tadeusz, Tadeusz, Tadeusz, Tadeusz, Tadeusz, Tadeusz, Tadeusz, Tadeusz, Tadeusz, Tadeusz, Tadeusz, Tadeusz, Tadeusz, Tadeusz, Tadeusz, Tadeusz, Tadeusz, Tadeusz, Tadeusz, augue urna sollicitudin augue, venenatis pulvinar erat ligula eget urna. Nunc id nibh non nisi bibendum commodo ac eu leo")
+            var timeStart = new Date().getTime();
+            var doDeleteTable = [".", ","]
+            var midSortedTable = []
+            var sortedTable = []
+            var time = 0;
+
+            // while(textZad4.includes(",") || textZad4.includes(".")){
+            //     for(e in doDeleteTable){
+            //         var charToDelete = textZad4.indexOf(doDeleteTable[e])
+            //         if(charToDelete != -1){
+            //             if(charToDelete != textZad4.length-1){
+            //                 textZad4 = textZad4.slice(0, charToDelete) + textZad4.slice(charToDelete + 1) 
+            //             } else {
+            //                 textZad4 = textZad4.slice(0, charToDelete)
+            //             }
+            //         }
+            //     }
+            // }
+
+            for (i = 0; i < doDeleteTable.length; i++) {
+                textZad4 = textZad4.replaceAll(doDeleteTable[i], "")
+            }
+
+            textZad4 = textZad4.toLowerCase().split(" ");
+            textZad4.sort();
+            
+            var indexToTable = 0
+            for (i = 0; i < textZad4.length; i++) {
+                if (midSortedTable[indexToTable] == undefined) {
+                    midSortedTable[indexToTable] = [textZad4[i], 1];
+                } else if (midSortedTable[indexToTable][0] === textZad4[i]) {
+                    midSortedTable[indexToTable][1] += 1;
+                } else {
+                    indexToTable++;
+                    midSortedTable[indexToTable] = [textZad4[i], 1]
+                }
+            }
+            
+            for (i = 1; i < midSortedTable.length; i++) {
+                if (sortedTable[0] == undefined) {
+                    sortedTable[0] = midSortedTable[0];
+                }
+                for (j = 0; j < sortedTable.length; j++) {
+                    if (midSortedTable[i][1] > sortedTable[j][1] && j == 0) {
+                        sortedTable.unshift(midSortedTable[i])
+                        break;
+                    } else if (midSortedTable[i][1] > sortedTable[j][1]) {
+                        sortedTable.splice(j, 0, midSortedTable[i])
+                        break;
+                    } else if (j == sortedTable.length - 1 && midSortedTable[i][1] < sortedTable[j][1]) {
+                        sortedTable.push(midSortedTable[i])
+                        break;
+                    } else if (midSortedTable[i][1] == sortedTable[j][1] && (sortedTable[j + 1] == undefined || sortedTable[j][1] > sortedTable[j + 1][1])) {
+                        sortedTable.splice(j + 1, 0, midSortedTable[i])
+                        break;
+                    }
+                }
+            }     
+            divZad4 = document.getElementById("zad4Answer");
+            divZad4.innerHTML = "<h2> Zadanie 4 </h2>";
+            var changeColor = 0
+            var textHolder = "";
+            var color1 = Math.floor(Math.random() * 256);
+            var color2 = Math.floor(Math.random() * 256);
+            var color3 = Math.floor(Math.random() * 256);
+            for (i = 0; i < sortedTable.length; i++) {
+                if (changeColor == 5) {
+                    changeColor = 0;
+                    color1 = Math.floor(Math.random() * 256);
+                    color2 = Math.floor(Math.random() * 256);
+                    color3 = Math.floor(Math.random() * 256);
+                }
+                textHolder += "<span style=\" color: rgb(" + color1 + ", " + color2 + ", " + color3 + "); \">" + sortedTable[i][0] + " ----> " + sortedTable[i][1] + "</span> <br>"
+                changeColor++;
+            }
+            divZad4.innerHTML += textHolder;
+            var timeEnd = new Date().getTime();
+            console.log("CZAS WYKONANIA: " + (timeEnd - timeStart));
+        })
+
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

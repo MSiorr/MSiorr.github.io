@@ -1,0 +1,96 @@
+body {
+    background-color: aliceblue;
+    padding: 0;
+    margin: 0;
+}
+
+.logo {
+    text-align: center;
+}
+
+.menu-container-v2 {
+    display: flex;
+    justify-content: space-around;
+    background-color: #252525;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    color: whitesmoke;
+}
+
+.menu-style {
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+input[type="radio"] {
+    margin: 0;
+}
+
+.menu-style label {
+    cursor: pointer;
+}
+
+@media (max-width: 549px) {
+    .menu-container-v2 {
+        display: block;
+        float: left;
+    }
+
+    .menu-style {
+        width: 100%;
+        justify-content: left;
+        padding-left: 1rem;
+        border: 1px solid whitesmoke;
+    }
+
+    .menu-style label {
+        width: 100%;
+    }
+}
+
+.plate {
+    margin-bottom: 2rem;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    overflow: hidden;
+    background-color: #252525;
+}
+
+.copyright-div {
+    color: whitesmoke;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.copyright-div p {
+    margin: 0;
+    padding: 0;
+    border-top: 2px solid whitesmoke ;
+}
+
+.contact-list {
+    list-style: none;
+    font-size: 1.9rem;
+    font-weight: bold;
+}
+
+.social-list {
+
+    list-style: none;
+    font-size: 1.9rem;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 0.5rem;
+}
+

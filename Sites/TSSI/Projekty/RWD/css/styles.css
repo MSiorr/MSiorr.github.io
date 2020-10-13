@@ -1,0 +1,125 @@
+.poster > img {
+    width: 100%;
+    height: 100%;
+}
+
+.plate {
+
+    border-radius: 25px;
+    text-align: center;
+    overflow: hidden;
+    background-color: #CCCCCC;
+    border: 2px solid #BBBBBB;
+    cursor: pointer;
+    transition: transform .5s, box-shadow .5s;
+
+}
+
+.plate:hover {
+
+    transform: scale(1.02);
+    box-shadow: -0.5px -0.5px 20px 3px #252525;
+}
+
+.plate > h2 {
+
+    font-weight: bold;
+    overflow: hidden;
+}
+
+.poster {
+    margin: 0.5rem;
+    overflow: hidden;
+}
+
+.contact,
+.social {
+    color: whitesmoke;
+    text-align: center;
+    margin-top: 4rem;
+}
+
+.contact-list .contact-name::before {
+    content: "";
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    background: url("../images/kontakty-sprites.png") -10px -10px;
+    margin-right: 1rem;
+}
+
+.contact-list .contact-phone::before {
+    content: "";
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    background: url("../images/kontakty-sprites.png") -54px -10px;
+    margin-right: 1rem;
+}
+
+.contact-list .contact-email::before {
+    content: "";
+    width: 32px;
+    height: 24px;
+    display: inline-block;
+    background: url("../images/kontakty-sprites.png") -98px -10px;
+    margin-right: 1rem;
+}
+
+.social-list li a {
+    text-decoration: none;
+    color: rgb(225, 225, 225);
+}
+
+.social-list li a:hover {
+    color: whitesmoke;
+}
+
+.social-list li a img {
+    color: #252525;
+}
+
+.social-dribbble {
+    margin: 0;
+    width: auto;
+}
+
+.dribbbleImg {
+    width: 48px;
+    height: 48px;
+    background: url("../images/social-sprites.png") -10px -10px;
+}
+
+.dribbbleImg:hover {
+    background: url("../images/social-sprites.png") -78px -10px;
+}
+
+.social-facebook {
+    margin: 0;
+    width: auto;
+}
+
+.facebookImg {
+    width: 48px;
+    height: 48px;
+    background: url("../images/social-sprites.png") -146px -10px;
+}
+
+.facebookImg:hover {
+    background: url("../images/social-sprites.png") -214px -10px;
+}
+
+.social-twitter {
+    margin: 0;
+    width: auto;
+}
+
+.twitterImg {
+    width: 48px;
+    height: 48px;
+    background: url("../images/social-sprites.png") -282px -10px;
+}
+
+.twitterImg:hover {
+    background: url("../images/social-sprites.png") -350px -10px;
+}

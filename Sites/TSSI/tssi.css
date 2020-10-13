@@ -1,0 +1,232 @@
+* {
+    box-sizing: border-box;
+}
+
+*::selection {
+    color: none;
+}
+
+*:hover {
+    cursor: default;
+}
+
+
+body {
+
+    background-color: black;
+    font-size: 3vw;
+    color: whitesmoke;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+a {
+
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+#container {
+
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+}
+
+#solo {
+    display: flex;
+    justify-content: center;
+}
+
+#duo {
+
+    display: flex;
+    justify-content: space-around;
+    /* padding-top: calc(50vh - ((0.5 * 35vw) / 2)); */
+
+}
+
+.plate-left {
+
+    width: 35vw;
+    height: calc(0.5 * 35vw);
+    border: 4px solid whitesmoke;
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 1s, opacity 1s, box-shadow 1s;
+    opacity: 0.9;
+
+}
+
+.plate-left:hover {
+    transform: scale(1.25) rotate(1deg);
+    opacity: 1;
+    box-shadow: -0.5px -0.5px 15vw 0.1vw rgb(200, 200, 200);
+    z-index: 10;
+}
+
+.plate-right {
+
+    width: 35vw;
+    height: calc(0.5 * 35vw);
+    border: 4px solid whitesmoke;
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 1s, opacity 1s, box-shadow 1s;
+    opacity: 0.9;
+
+}
+
+.plate-right:hover {
+    transform: scale(1.25) rotate(-1deg);
+    opacity: 1;
+    box-shadow: -0.5px -0.5px 15vw 0.1vw rgb(200, 200, 200);
+    z-index: 10;
+}
+
+.plate-center {
+    width: 35vw;
+    height: calc(0.5 * 35vw);
+    border: 4px solid whitesmoke;
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 1s, opacity 1s, box-shadow 1s;
+    opacity: 0.9;
+}
+
+.plate-center:hover {
+    transform: scale(1.25);
+    opacity: 1;
+    box-shadow: -0.5px -0.5px 15vw 0.1vw rgb(200, 200, 200);
+    z-index: 10;
+}
+
+#clicker {
+    position: relative;
+}
+
+#clicker::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("Img/Clicker-background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0;
+    transition: opacity .75s;
+}
+
+#clicker:hover::after {
+
+    opacity: 1; 
+}
+
+#RWD {
+    position: relative;
+}
+
+#RWD::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("Img/RWD-background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0;
+    transition: opacity .75s;
+}
+
+#RWD:hover::after {
+
+    opacity: 1; 
+}
+
+#siteProject {
+    position: relative;
+}
+
+#siteProject::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("Img/siteProject-background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0;
+    transition: opacity .75s;
+}
+
+#siteProject:hover::after {
+
+    opacity: 1; 
+}
+
+@media (max-width: 800px) {
+
+    #container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    #duo {
+        height: 63vh;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    #solo {
+        height: 30vh;
+    }
+
+    .plate-left,
+    .plate-right,
+    .plate-center {
+
+        width: 75vw;
+        height: calc(0.5 * 75vw);
+    }
+
+    .plate-left:hover,
+    .plate-right:hover,
+    .plate-center:hover {
+        transform: scale(1.25);
+    }
+}
+
+@media (max-width: 750px) {
+
+    #duo {
+        height: 61.5vh;
+    }
+}
+
+@media (max-width: 700px) {
+
+    #duo {
+        height: 60vh;
+    }
+}

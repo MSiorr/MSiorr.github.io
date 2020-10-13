@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="libs/jq.js"></script>
+    <style>
+        #div1{
+            background: gray;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+    <script>
+        $(document).ready(function(){
+
+            //start
+
+            $("#bt1").on("click", function(){
+                var co = confirm("Powiększyć diva?")
+                var divWidth = $("#div1").width()
+                var divHeight = $("#div1").height()
+
+                if(co){
+                    $("#div1")
+                        .css("width", divWidth * 2)
+                        .css("height", divHeight * 2)
+                        console.log("Obecna wielkość diva: " + divWidth * 2 + "x" + divHeight * 2)
+                }else{
+                    $("#div1")
+                        .css("width", divWidth / 3)
+                        .css("height", divHeight / 3)
+                        console.log("Obecna wielkość diva: " + divWidth / 3 + "x" + divHeight / 3)
+                }
+            })
+
+            //end
+        })
+
+    </script>
+</head>
+<body>
+    <h1> Na stronie jest div i buton. klik butona, pokazuje się confirm, w zależności od ok/cancel div zmienia wielkość na dwa razy większy lub 3 razy mniejszy </h1>
+
+    <button id="bt1">Pokaz confirm</button>
+
+    <div id="div1"></div>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="libs/jq.js"></script>
+    <style>
+        #div1{
+            background-color: red;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+
+    <script>
+
+        console.log(new Date().getMilliseconds());
+        
+        $(document).ready(function(){
+            console.log(new Date().getMilliseconds());
+
+            //start
+
+            $("#bt1").on("click", function(){
+                alert("OK")
+            })
+
+            $("#bt2").on("click", function(){
+                var co = confirm("ok");
+                console.log(co)
+
+                if(co){
+                    console.log("Jest OK")
+                }else{
+                    console.log("jest NIE OK")
+                }
+            })
+
+            $("#bt3").on("click", function(){
+                var co = prompt("ok");
+                console.log(co)
+
+                if(co != null){
+                    console.log(co)
+                }else{
+                    console.log("Nic nie pisałeś")
+                }
+            })
+
+            $("#bt4").on("click", function(){
+                $("#div1")
+                    .css("width", 200)
+                    .css("height", 300)
+                    .css("background", "green")
+                    .css("border", "solid 5px black")
+                    .html("zawartosc")
+            })
+
+            $("#bt5").on("click", function(){
+                $("#bt4").off("click")
+
+            })
+            //end
+
+        })
+
+    </script>
+</head>
+<body>
+    
+    <button id="bt1">Pokaż alert</button>
+    <button id="bt2">Pokaż confirm, if</button>
+    <button id="bt3">Pokaż prompt</button>
+    <button id="bt4">Zmień css-a w divie</button>
+    <button id="bt5">Anuluj działanie buttona 4</button>
+
+    <br>
+
+    <div id="div1"></div>
+
+</body>
+</html>

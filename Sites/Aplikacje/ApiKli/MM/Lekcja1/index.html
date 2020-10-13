@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+  <style>
+    #title {
+      color: rgb(29, 29, 180);
+      font-size: 40px;
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      width: 100%;
+      text-align: center;
+    }
+
+    #title h1 {
+      margin-top: 0px;
+    }
+
+    h2 {
+      font-size: 40px;
+    }
+
+    td,
+    th {
+      width: 40px;
+      height: 28px;
+      padding: 2px;
+    }
+
+    .blue {
+      background-color: #45A0D7;
+      color: white;
+    }
+
+    .orange {
+      background-color: #F1BB5D;
+      color: black;
+    }
+  </style>
+  <script>
+
+    document.write("<div id=\"title\"><h1> LEKCJA 1 </h1></div>")
+
+    // Zadanie 1
+    document.write("<h2> Zadanie 1 </h2>")
+
+    // A
+    document.write("<h3>A.</h3>")
+
+    document.write('<b> Witaj JavaScript </b>');
+    // document.write('Witaj JavaScript'.bold())
+    document.write('<br><br>');
+
+    // B
+    document.write("<h3>B.</h3>")
+
+    for (i = -111; i <= 111; i++) {
+      document.write(i + '<br>');
+    }
+    document.write('<br><br>');
+
+    // C
+    document.write("<h3>C.</h3>")
+
+    for (i = 50; i > 0;) {
+      document.write(i + ' ');
+      i -= 3;
+    }
+    document.write('<br><br>');
+
+    // D
+    document.write("<h3>D.</h3>")
+
+    for (i = 50; i >= 10;) {
+      if (i >= 40 || i <= 20) {
+        document.write(i + ' ');
+      }
+
+      i--;
+    }
+    document.write('<br><br>');
+
+    // Zadanie 2
+
+    // A
+    console.log("A.")
+    for (i = -30; i < 40;) {
+      if (i <= 5 || i >= 14) {
+        console.log(i);
+      }
+
+      i += 2;
+    }
+    console.log(' ');
+    console.log('----------------------------------------------------------------------------------------------------------');
+    console.log(' ');
+
+    // B
+    console.log("B.")
+    for (i = -20; i < 40;) {
+      if (i % 2 != 0 && (i <= 3 || i >= 12)) {
+        console.log(i);
+      }
+
+      i += 1;
+    }
+    console.log(' ');
+    console.log('----------------------------------------------------------------------------------------------------------'); console.log(' ');
+
+    // C
+    console.log("C.")
+    for (i = -100; i < 41;) {
+      if (i % 3 == 0 && (i <= -50 || i >= 12)) {
+        console.log(i);
+      }
+
+      i += 1;
+    }
+
+    // Zadanie 3
+    document.write("<h2> Zadanie 3 </h2>")
+
+    var wartosc = window.prompt('Podaj przykładową wartość:', '6');
+
+    document.write("<pre>")
+
+    // A  
+    document.write("<h3>A.</h3>")
+
+    for (i = 1; i <= wartosc; i++) {
+      document.write("X")
+    }
+
+    document.write('<br><br>');
+
+    // B 
+    document.write("<h3>B.</h3>")
+
+    for (i = 1; i <= wartosc; i++) {
+      for (j = 1; j <= wartosc; j++) {
+        if (i == 1 || i == wartosc) {
+          if (j != wartosc) {
+            document.write("X" + " ")
+          } else {
+            document.write("X")
+          }
+        } else {
+          if (j == 1) {
+            document.write("X ")
+          } else if (j == wartosc) {
+            document.write("X")
+          } else {
+            document.write("  ")
+          }
+        }
+      }
+      document.write("<br>")
+    }
+
+    document.write('<br><br>');
+
+    // C
+    document.write("<h3>C.</h3>")
+
+    var wypisaneX = "X"
+
+    for (i = wartosc; i >= 1; i--) {
+      for (j = 1; j < i; j++) {
+        document.write(" ")
+      }
+      if (i == wartosc) {
+        document.write(wypisaneX)
+      } else {
+        wypisaneX += "XX"
+        document.write(wypisaneX)
+      }
+      for (j = 1; j < i; j++) {
+        document.write(" ")
+      }
+      document.write("<br>")
+    }
+
+    document.write('<br><br>');
+
+    // D
+    document.write("<h3>D.</h3>")
+
+    firstStringBuilder = ""
+
+    for (i = 1; i <= wartosc; i++) {
+
+      firstStringBuilder += i
+      document.write(firstStringBuilder)
+
+      for (j = 1; j <= wartosc - i; j++) {
+        document.write(" ")
+      }
+      document.write("<br>")
+    }
+
+    document.write('<br><br>');
+
+    // E
+    document.write("<h3>E.</h3>")
+
+    var secondStringBuilder = ""
+    var stringBuilderToCheckBonusDigits = ""
+
+    for (i = 1; i <= wartosc; i++) {
+      stringBuilderToCheckBonusDigits += i;
+    }
+    var moreDigit = stringBuilderToCheckBonusDigits.length;
+
+
+    for (i = 1; i <= wartosc; i++) {
+
+
+      moreDigit -= i.toString().length;
+      for (j = 1; j <= moreDigit; j++) {
+        document.write(" ")
+      }
+
+      secondStringBuilder += i
+      document.write(secondStringBuilder)
+      document.write("<br>")
+    }
+
+    document.write('<br><br>');
+
+    // F
+    document.write("<h3>F.</h3>")
+
+    silnia = 1
+
+    for (i = 1; i <= wartosc; i++) {
+      silnia *= i
+    }
+
+    document.write("Silnia z liczby " + wartosc + " to: " + silnia)
+    document.write('<br><br>');
+
+    // G
+    document.write("<h3>G.</h3>")
+
+    sumaNieparzystych = 0
+
+    for (i = 0; i < wartosc; i++) {
+      if (i & 2 != 0) {
+        sumaNieparzystych += i
+      }
+    }
+
+    document.write("Suma liczb nieparzystych w zakresie <0," + wartosc + ") to: " + sumaNieparzystych)
+    document.write('<br><br>');
+
+    // H
+    document.write("<h3>H.</h3>")
+
+    document.write("<button id=\"pierwszaBtn\">Sprawdź, czy pierwsza</button>")
+    var PierwszaButton = document.getElementById("pierwszaBtn");
+
+    PierwszaButton.addEventListener("click", function () {
+      czyPierwsza = true
+
+      for (i = 2; i < wartosc; i++) {
+        if (wartosc % i == 0) {
+          czyPierwsza = false
+        }
+      }
+
+
+      if (czyPierwsza) {
+        alert("Podana liczba jest pierwsza")
+      } else {
+        alert("Podana liczba nie jest pierwsza")
+      }
+    })
+
+
+    //I
+    document.write("<h3>I.</h3>")
+
+    document.write("<table id=\"tabliczkaMnozenia\">")
+    var table = document.getElementById("tabliczkaMnozenia")
+
+    document.write("<tr>")
+    for (i = 0; i <= wartosc; i++) {
+      if (i == 0) {
+        document.write("<th class=\"white\"></th>")
+      } else {
+        document.write("<th class=\"blue\">" + i + "</th>")
+      }
+    }
+    document.write("</tr>")
+
+    for (i = 1; i <= wartosc; i++) {
+      document.write("<tr>")
+      for (j = 0; j <= wartosc; j++) {
+        if (j == 0) {
+          document.write("<th class=\"blue\">" + i + "</th>")
+        } else {
+          if (j == i) {
+            document.write("<th class=\"white\">" + (j * i) + "</th>")
+          } else {
+            document.write("<th class=\"orange\">" + (j * i) + "</th>")
+          }
+        }
+      }
+      document.write("</tr>")
+    }
+
+    document.write("</table>")
+
+    document.write("</pre>")
+    document.write('<br><br>');
+
+    // ZADANIE 4
+    document.write("<h2> Zadanie 4 </h2>")
+
+    document.write("<button id=\"peselBtn\">PESEL</button><br><br>")
+    var button = document.getElementById("peselBtn");
+    var checkTable = [9, 7, 3, 1, 9, 7, 3, 1, 9, 7]
+    var manTable = [1, 3, 5, 7, 9]
+    var birthdayStatus = { 0: [1900, 0], 1: [1900, 0], 2: [2000, 20], 3: [2000, 20], 4: [2100, 40], 5: [2100, 40], 6: [2200, 60], 7: [2200, 60], 8: [1800, 80], 9: [1800, 80] }
+    var peselStatus = []
+
+    button.addEventListener("click", function () {
+      var peselInput = window.prompt("Podaj swój PESEL");
+      checkPesel(peselInput);
+    })
+
+    function checkPesel(pesel) {
+      var peselSum = 0;
+      if (pesel.length != 11) {
+        alert("Podany PESEL nie jest prawidłowy");
+      } else {
+        for (i = 0; i < 10; i++) {
+          peselSum += parseInt(pesel[i]) * checkTable[i]
+        }
+
+        if (peselSum % 10 != pesel[10]) {
+          alert("Podany PESEL nie jest prawidłowy");
+        }
+        else {
+          for (i = 0; i < manTable.length; i++) {
+            if (pesel[9] == manTable[i]) {
+              peselStatus[0] = "Mężczyzna"
+              break;
+            } else {
+              peselStatus[0] = "Kobieta"
+            }
+          }
+          var century = birthdayStatus[parseInt(pesel[2])]
+          var year = century[0] + parseInt(pesel[0] + pesel[1]);
+          var month = parseInt(pesel[2] + pesel[3]) - century[1];
+          if (month < 10) {
+            month = "0" + month
+          }
+          var day = pesel[4] + pesel[5];
+
+          peselStatus[1] = day + " " + month + " " + year
+
+          alert("Podany PESEL jest prawidłowy.");
+          alert("Płeć: " + peselStatus[0] + ";  Data urodzin: " + peselStatus[1] + "r.");
+        }
+      }
+
+
+
+
+    }
+
+  </script>
+</head>
+
+<body>
+</body>
+
+</html>
