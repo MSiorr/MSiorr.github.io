@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statki</title>
+    <!-- http://wklejto.pl/856371 -->
+    <style>
+        * {
+            box-sizing: border-box;
+            font-size: 20px;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-weight: bold;
+        }
+
+        body {
+            background-color: gray;
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        #mainDiv {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        #gameDiv {
+            width: 80%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding-top: 60px;
+        }
+
+        #buttonDiv {
+            width: 80px;
+            height: 40px;
+            margin-top: 20px;
+        }
+
+        #buttonStart {
+            height: 40px;
+            width: 80px;
+            background-color: rgb(110, 110, 110);
+            border: 3px solid black;
+            border-radius: 10px;
+        }
+
+        #buttonStart:hover {
+            background-color: gray;
+            cursor: pointer;
+        }
+
+        #mainArenaDiv {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .arena {
+            border: 2px solid black;
+        }
+
+        .divRow {
+            display: flex;
+            justify-content: start;
+        }
+
+        .pcField,
+        .playerField {
+            border: 1px solid black;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-size: 22px;
+        }
+
+        #menuShip {
+            padding: 20px;
+            border: 2px solid black;
+            box-shadow: 0 0 5px black;
+        }
+
+        .shipDiv {
+            border: 1px solid black;
+            background-color: gray;
+            display: flex;
+            justify-content: start;
+            margin-bottom: 10px;
+        }
+
+        .shipDiv:hover {
+            background-color: purple;
+            cursor: pointer;
+        }
+
+        .shipBlock {
+            border: 0.5px solid black;
+            width: 25px;
+            height: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        var ships = [[1, 4], [2, 3], [3, 2], [4, 1]];  // [Count, Length]
+        var menuShips = [[1, 4], [2, 3], [3, 2], [4, 1]];
+        var playerShips = [];
+        var pcShips = [];
+        var playerFieldList;
+        var pcFieldList;
+        var hitPcShips = [];
+        var targetFields = null;
+        var framedPCShips = 0;
+        var hitPlayerShips = [];
+        var sunkenPlayerShips = 0;
+        var arenaSize = 10;
+        var arena2DTable = [];
+        var playerArena2DTable = [];
+        var players = 2;
+        var selectedShip = [4, 1];
+        var preparation = true;
+
+        var playerTurn = true;
+        var pcTurn = false;
+        var pcMoves = 0;
+        var endGame = false;
+        var pcShootTimeout;
+        var newTargetTable = [];
+
+
+        var AiMediumHit = false;
+        var mediumAiShipDirect = 0;
+        var tempHitAiMedium = null;
+        var tempToCheckAiMedium = [];
+        var AiHardHit = false;
+        var hardAiShipDirect = 0;
+        var tempHitAiHard = null;
+        var tempToCheckAiHard = [];
+
+        var mainArenaDiv;
+        var direction;
+        var shipDirection;
+
+        var mainDiv = document.createElement("div")
+        mainDiv.id = "mainDiv"
+        document.body.appendChild(mainDiv)
+        mainDiv.addEventListener("contextmenu", function () {
+            event.preventDefault();
+        })
+
+        function startOrRestartGame() {
+            mainDiv.innerHTML = "";
+            playerShips = [];
+            pcShips = [];
+            hitPcShips = [];
+            targetFields = null;
+            framedPCShips = 0;
+            hitPlayerShips = [];
+            sunkenPlayerShips = 0;
+            arena2DTable = [];
+            playerArena2DTable = [];
+            selectedShip = [4, 1];
+            preparation = true;
+
+            playerTurn = true;
+            pcTurn = false;
+            pcMoves = 0;
+            endGame = false;
+            newTargetTable = [];
+
+
+            AiMediumHit = false;
+            mediumAiShipDirect = 0;
+            tempHitAiMedium = null;
+            AiHardHit = false;
+            hardAiShipDirect = 0;
+            tempHitAiHard = null;
+
+            createMenuShips();
+            createArenas();
+            createStartGameButton();
+            fill2DTables();
+            calculatePCShipsPositions();
+            placePCShipsOnArena();
+            eventsListenerForPlayerFields();
+        }
+        startOrRestartGame();
+
+
+        // Add menu with player ships
+
+        function createMenuShips() {
+            mainArenaDiv = document.createElement("div")
+            mainArenaDiv.id = "mainArenaDiv"
+
+            var menuShip = document.createElement("div")
+            menuShip.id = "menuShip";
+            for (let i = 0; i < ships.length; i++) {
+                for (let j = 0; j < ships[i][0]; j++) {
+                    var shipDiv = document.createElement("div")
+                    shipDiv.classList.add("shipDiv");
+                    for (let k = 0; k < ships[i][1]; k++) {
+                        var shipBlock = document.createElement("div");
+                        shipBlock.classList.add("shipBlock")
+                        shipDiv.appendChild(shipBlock)
+                    }
+                    shipDiv.style.width = shipDiv.children.length * 25 + "px"
+                    shipDiv.id = "Ship[" + shipDiv.children.length + "," + (j + 1) + "]";
+                    shipDiv.addEventListener("click", function () {
+                        if (selectedShip == null) {
+                            selectedShip = eval((this.id).substr(4))
+                            this.style.backgroundColor = "blue"
+                        } else {
+                            if (this.id == "Ship[" + selectedShip.toString() + "]") {
+                                selectedShip = null;
+                                this.style.removeProperty("background-color")
+                            } else {
+                                if (selectedShip != null) {
+                                    document.getElementById("Ship[" + selectedShip.toString() + "]").style.removeProperty("background-color")
+                                    selectedShip = eval((this.id).substr(4))
+                                    this.style.backgroundColor = "blue"
+                                }
+                            }
+                        }
+                    })
+                    menuShip.appendChild(shipDiv);
+                }
+            }
+            mainDiv.appendChild(menuShip)
+            menuHeight = menuShip.offsetHeight;
+            menuWidth = menuShip.offsetWidth;
+            menuShip.style.height = menuHeight + "px";
+            menuShip.style.width = menuWidth + "px";
+
+            document.getElementById("Ship[4,1]").style.backgroundColor = "blue";
+        }
+
+        //create arenas
+
+        function createArenas() {
+            var gameDiv = document.createElement("div");
+            gameDiv.id = "gameDiv"
+            mainDiv.appendChild(gameDiv);
+
+            for (let a = 0; a < players; a++) {
+                var arena = document.createElement("div")
+                arena.classList.add("arena");
+                // arena.style.width = (arenaSize * 25) + "px"
+                // arena.style.height = (arenaSize * 25) + "px"
+                for (let i = 0; i < arenaSize; i++) {
+                    var divRow = document.createElement("div")
+                    divRow.classList.add("divRow")
+                    for (let j = 0; j < arenaSize; j++) {
+                        var div = document.createElement("div")
+                        if (a == 0) {
+                            div.id = "player[" + i + "," + j + "]"
+                            div.classList.add("playerField")
+                        } else {
+                            div.id = "pc[" + i + "," + j + "]"
+                            div.classList.add("pcField")
+                        }
+                        div.style.width = 25 + "px";
+                        div.style.height = 25 + "px";
+                        divRow.appendChild(div)
+                    }
+                    arena.appendChild(divRow)
+                }
+                mainArenaDiv.appendChild(arena)
+            }
+            gameDiv.appendChild(mainArenaDiv)
+        }
+
+
+        // Add button start game
+
+
+        function createStartGameButton() {
+            var buttonDiv = document.createElement("div");
+            buttonDiv.id = "buttonDiv";
+
+            var buttonStart = document.createElement("button");
+            buttonStart.classList.add("btn");
+            buttonStart.id = "buttonStart"
+            buttonStart.textContent = "PLAY"
+            // buttonStart.style.display = "none"
+
+
+
+            buttonStart.addEventListener("click", function () {
+                pcFieldList = document.getElementsByClassName("pcField");
+                preparation = false;
+                this.style.display = "none";
+                for (let i = 0; i < playerFieldList.length; i++) {
+                    playerFieldList[i].style.cursor = "pointer";
+                    pcFieldList[i].style.cursor = "pointer";
+                }
+                addHitStyle();
+            })
+
+            buttonDiv.appendChild(buttonStart);
+            gameDiv.appendChild(buttonDiv);
+        }
+
+
+        //fill 2D Tables 
+
+
+        function fill2DTables() {
+            for (let i = 0; i < arenaSize + 2; i++) {
+                arena2DTable.push([])
+                playerArena2DTable.push([])
+                for (let j = 0; j < arenaSize + 2; j++) {
+                    arena2DTable[i][j] = 0
+                    playerArena2DTable[i][j] = 0
+                }
+            }
+        }
+
+
+        //place enemy ships
+
+
+        function calculatePCShipsPositions() {
+            for (let i = 0; i < ships.length; i++) {
+                var shipIndex = 1
+                for (let j = 0; j < ships[i][0]; j++) {
+                    var shipPlaced = false;
+                    var pcShipsPositionsTable = [];
+                    while (!shipPlaced) {
+                        var canPlaceShip = true;
+                        direction = Math.round(Math.random());  // 0 - row ; 1 - column
+                        if (direction == 0) {
+                            var x = Math.ceil(Math.random() * 10);
+                            var y = Math.ceil(Math.random() * (10 - ships[i][1] + 1));
+                        } else {
+                            var x = Math.ceil(Math.random() * (10 - ships[i][1] + 1));
+                            var y = Math.ceil(Math.random() * 10);
+                        }
+                        if (x > 0 && y > 0) {
+                            for (let k = 0; k < ships[i][1]; k++) {
+                                if (direction == 0) {
+                                    if (arena2DTable[x][y + k] == 1 || arena2DTable[x][y + k] == 2) {
+                                        canPlaceShip = false;
+                                        break;
+                                    } else {
+                                        canPlaceShip = true;
+                                    }
+                                } else {
+                                    if (arena2DTable[x + k][y] == 1 || arena2DTable[x + k][y] == 2) {
+                                        canPlaceShip = false;
+                                        break;
+                                    } else {
+                                        canPlaceShip = true;
+                                    }
+                                }
+                            }
+                            if (canPlaceShip) {
+                                for (let k = 0; k < ships[i][1]; k++) {
+                                    if (direction == 0) {
+                                        pcShipsPositionsTable.push([x - 1, y + k - 1])
+                                    } else {
+                                        pcShipsPositionsTable.push([x + k - 1, y - 1])
+                                    }
+                                }
+
+                                shipContour(x, y, ships[i][1], direction, arena2DTable)
+                                pcShips.push({
+                                    name: "[" + ships[i][1].toString() + "," + shipIndex + "]",
+                                    len: ships[i][1],
+                                    x: x - 1,
+                                    y: y - 1,
+                                    direct: direction,
+                                    positions: pcShipsPositionsTable
+                                });
+                                shipIndex++;
+                                shipPlaced = true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Draw 1 and 2 in 2DTable
+
+        function shipContour(x, y, shipLen, direction, table) {
+            for (let i = 0; i < shipLen; i++) {
+                if (direction == 0) {
+                    table[x][y + i] = 1
+                    if (i == 0) {
+                        table[x - 1][(y + i) - 1] = 2
+                        table[x][(y + i) - 1] = 2
+                        table[x + 1][(y + i) - 1] = 2
+                    }
+                    if (i == shipLen - 1) {
+                        table[x - 1][(y + i) + 1] = 2
+                        table[x][(y + i) + 1] = 2
+                        table[x + 1][(y + i) + 1] = 2
+                    }
+                    table[x - 1][y + i] = 2
+                    table[x + 1][y + i] = 2
+                } else {
+                    table[x + i][y] = 1
+                    if (i == 0) {
+                        table[(x + i) - 1][y - 1] = 2
+                        table[(x + i) - 1][y] = 2
+                        table[(x + i) - 1][y + 1] = 2
+                    }
+                    if (i == shipLen - 1) {
+                        table[(x + i) + 1][y - 1] = 2
+                        table[(x + i) + 1][y] = 2
+                        table[(x + i) + 1][y + 1] = 2
+                    }
+                    table[x + i][y - 1] = 2
+                    table[x + i][y + 1] = 2
+                }
+            }
+        }
+
+
+        //Draw 2D Table on screen and add ships to arena
+
+        function placePCShipsOnArena() {
+            for (let i = 0; i < arena2DTable.length; i++) {
+                for (let j = 0; j < arena2DTable.length; j++) {
+                    if (arena2DTable[i][j] == 1) {
+                        // document.getElementById("pc[" + (i - 1) + "," + (j - 1) + "]").style.backgroundColor = "red"
+                        document.getElementById("pc[" + (i - 1) + "," + (j - 1) + "]").classList.add("redShip");
+                    }
+                }
+            }
+        }
+
+        // Add events to player fields 
+
+        function eventsListenerForPlayerFields() {
+            playerFieldList = document.getElementsByClassName("playerField")
+            for (let i = 0; i < playerFieldList.length; i++) {
+                shipDirection = 0;
+                playerFieldList[i].addEventListener("mouseover", function (e) {
+                    if (selectedShip != null && preparation) {
+                        shipDisplay(this, e.type);
+                    }
+                })
+                playerFieldList[i].addEventListener("mouseout", function (e) {
+                    if (selectedShip != null && preparation) {
+                        shipDisplay(this, e.type);
+                    }
+                })
+                playerFieldList[i].addEventListener("contextmenu", function (event) {
+                    if (selectedShip != null && preparation) {
+                        event.preventDefault();
+                        shipDisplay(this, "mouseout");
+                        if (shipDirection == 0) {
+                            shipDirection = 1;
+                        } else {
+                            shipDirection = 0;
+                        }
+                        shipDisplay(this, "mouseover");
+                    }
+
+                })
+                playerFieldList[i].addEventListener("click", function () {
+                    if (preparation) {
+                        if (this.classList.contains("blueShip") && selectedShip == null) {
+                            pickUpTheShip(this);
+                        } else if (selectedShip != null) {
+                            placeShip(this)
+                        }
+                    } else if (playerTurn) {
+                        alert("Ruch gracza")
+                    }
+                })
+            }
+        }
+
+        // display ship spirit on arena (green => can place; red = can't place)
+
+        function shipDisplay(element, event) {
+            var shipLength = selectedShip[0];
+            var offset = 0
+            if (event == "mouseover") {
+                element.style.cursor = "pointer";
+                var displayColor = "green";
+            } else {
+                element.style.cursor = "default";
+                var displayColor = "transparent";
+            }
+            var idEval = eval(element.id.substr(6))
+            if (shipDirection == 0) {
+                if (idEval[1] + shipLength - 1 >= 10) {
+                    offset = (idEval[1] + shipLength - 1) - 9
+                }
+
+                if (event == "mouseover") {
+                    for (let i = 0; i < shipLength; i++) {
+                        if (playerArena2DTable[idEval[0] + 1][idEval[1] + (i - offset) + 1] == 1 || playerArena2DTable[idEval[0] + 1][idEval[1] + (i - offset) + 1] == 2) {
+                            displayColor = "red";
+                            break;
+                        } else {
+                            displayColor = "green";
+                        }
+
+                    }
+                }
+
+                for (let j = 0; j < shipLength; j++) {
+                    eID = idEval[0].toString() + (idEval[1] + (j - offset)).toString();
+                    playerFieldList[parseInt(eID)].style.backgroundColor = displayColor;
+                }
+            }
+
+            else {
+                if (idEval[0] + shipLength - 1 >= 10) {
+                    var offset = (idEval[0] + shipLength - 1) - 9
+                }
+
+                if (event == "mouseover") {
+                    for (let i = 0; i < shipLength; i++) {
+                        if (playerArena2DTable[idEval[0] + (i - offset) + 1][idEval[1] + 1] == 1 || playerArena2DTable[idEval[0] + (i - offset) + 1][idEval[1] + 1] == 2) {
+                            displayColor = "red";
+                            break;
+                        } else {
+                            displayColor = "green";
+                        }
+
+                    }
+                }
+
+                for (let j = 0; j < shipLength; j++) {
+                    var eID = (idEval[0] + (j - offset)).toString() + idEval[1].toString();
+                    playerFieldList[parseInt(eID)].style.backgroundColor = displayColor;
+                }
+            }
+            var blueShips = document.getElementsByClassName("blueShip");
+            for (let i = 0; i < blueShips.length; i++) {
+                if (event == "mouseout")
+                    blueShips[i].style.backgroundColor = "blue";
+                blueShips[i].style.cursor = "pointer";
+            }
+        }
+
+        // place ship on arena
+
+        function placeShip(element) {
+            if (element.style.backgroundColor == "green") {
+                var shipLength = selectedShip[0]
+                var elementID = eval(element.id.substr(6));
+                var offset = 0
+                var conXY;
+                var variables = [];
+                if (shipDirection == 0) {
+                    conXY = elementID[0];
+
+                    if (elementID[1] + shipLength - 1 >= 10) {
+                        offset = (elementID[1] + shipLength - 1) - 9
+                    }
+
+                    for (let i = 0; i < shipLength; i++) {
+                        var eID = elementID[0].toString() + (elementID[1] + (i - offset)).toString()
+                        playerFieldList[parseInt(eID)].style.backgroundColor = "blue";
+                        playerFieldList[parseInt(eID)].style.cursor = "pointer"
+                        playerFieldList[parseInt(eID)].classList.add("blueShip");
+                        playerFieldList[parseInt(eID)].classList.add("placedShip[" + selectedShip[0] + "," + selectedShip[1] + "]");
+                        variables.push([elementID[0], elementID[1] + (i - offset)])
+                    }
+                    shipContour(conXY + 1, elementID[1] - offset + 1, shipLength, shipDirection, playerArena2DTable)
+                } else {
+                    conXY = elementID[1];
+
+                    if (elementID[0] + shipLength - 1 >= 10) {
+                        offset = (elementID[0] + shipLength - 1) - 9
+                    }
+
+                    for (let i = 0; i < shipLength; i++) {
+                        var eID = (elementID[0] + (i - offset)).toString() + elementID[1].toString()
+                        playerFieldList[parseInt(eID)].style.backgroundColor = "blue";
+                        playerFieldList[parseInt(eID)].style.cursor = "pointer"
+                        playerFieldList[parseInt(eID)].classList.add("blueShip");
+                        playerFieldList[parseInt(eID)].classList.add("placedShip[" + selectedShip[0] + "," + selectedShip[1] + "]");
+                        variables.push([elementID[0] + (i - offset), elementID[1]])
+                    }
+                    shipContour(elementID[0] - offset + 1, conXY + 1, shipLength, shipDirection, playerArena2DTable)
+                }
+                playerShips.push({
+                    name: "placedShip[" + selectedShip[0] + "," + selectedShip[1] + "]",
+                    len: shipLength + offset,
+                    direct: shipDirection,
+                    constXorY: conXY,
+                    positions: variables
+                })
+
+                document.getElementById("Ship[" + selectedShip[0] + "," + selectedShip[1] + "]").style.display = "none";
+                selectedShip = null;
+                shipDirection = 0;
+
+                checkToDisplayButton();
+            }
+        }
+
+        // Pick up the ship on click when placed on arena
+
+        function pickUpTheShip(element) {
+            var wholeShip;
+            var toPick;
+            var contours = [];
+            for (let i = 0; i < element.classList.length; i++) {
+                if (element.classList[i].substr(0, 10) == "placedShip") {
+                    wholeShip = document.getElementsByClassName(element.classList[i]);
+                    toPick = element.classList[i].substr(10);
+                    for (let j = 0; j < playerShips.length; j++) {
+                        if (playerShips[j].name == element.classList[i]) {
+                            playerShips.splice(j, 1);
+                        }
+                    }
+                }
+            }
+            var toDeleteLength = wholeShip.length;
+            for (let i = 0; i < toDeleteLength; i++) {
+                contours.push(eval(wholeShip[0].id.substr(6)))
+                wholeShip[0].style.backgroundColor = "transparent";
+                wholeShip[0].style.cursor = "default";
+                wholeShip[0].classList.remove("blueShip");
+                wholeShip[0].classList.remove("placedShip" + toPick);
+            }
+            document.getElementById("Ship" + toPick).style.display = "flex";
+            selectedShip = eval(toPick);
+
+            contours = contours.sort();
+
+            deleteContour(contours, playerArena2DTable);
+            shipDisplay(element, "mouseover");
+            for (let i = 0; i < playerShips.length; i++) {
+                if (playerShips[i].direct == 0) {
+                    shipContour(playerShips[i].constXorY + 1, playerShips[i].positions[0][1] + 1, playerShips[i].len, playerShips[i].direct, playerArena2DTable)
+                } else {
+                    shipContour(playerShips[i].positions[0][0] + 1, playerShips[i].constXorY + 1, playerShips[i].len, playerShips[i].direct, playerArena2DTable)
+                }
+            }
+
+            checkToDisplayButton();
+        }
+
+        // Delete 1 and 2 on 2DTable while clicking and picking up the ship
+
+        function deleteContour(elements, table) {
+            var contourDirection;
+            if (elements[0][0] == elements[elements.length - 1][0]) {
+                contourDirection = 0;
+            } else {
+                contourDirection = 1;
+            }
+            var startContour = elements[0];
+
+            for (let i = 0; i < elements.length + 2; i++) {
+                if (contourDirection == 0) {
+                    table[startContour[0]][startContour[1] + i] = 0;
+                    table[startContour[0] + 1][startContour[1] + i] = 0;
+                    table[startContour[0] + 2][startContour[1] + i] = 0;
+
+                } else {
+                    table[startContour[0] + i][startContour[1]] = 0;
+                    table[startContour[0] + i][startContour[1] + 1] = 0;
+                    table[startContour[0] + i][startContour[1] + 2] = 0;
+                }
+            }
+            shipDirection = contourDirection;
+        }
+
+        // checking the possibility of showing the button
+
+        function checkToDisplayButton() {
+            if (playerShips.length == 10) {
+                buttonStart.style.display = "block"
+            } else {
+                buttonStart.style.display = "none"
+            }
+        }
+
+        // Add click event to pcfields
+
+        function addHitStyle() {
+            for (let i = 0; i < pcFieldList.length; i++) {
+                pcFieldList[i].addEventListener("click", function () {
+                    if (!pcFieldList[i].classList.contains("shooted") && playerTurn) {
+                        pcFieldList[i].classList.add("shooted");
+                        if (pcFieldList[i].classList.contains("redShip")) {
+                            pcFieldList[i].classList.add("hit");
+                            pcFieldList[i].innerHTML = "&#10006;";
+                            checkHitShip(pcFieldList[i], hitPcShips, pcShips);
+                        } else {
+                            pcFieldList[i].innerHTML = "&middot;";
+                            changeTurn();
+                        }
+                    } else if (pcTurn) {
+                        alert("Ruch komputera")
+                    }
+                })
+            }
+        }
+
+        // Who shooting now
+
+        function shooting() {
+            if (playerTurn) {
+                console.log("ME");
+            } else {
+                pcShootTimeout = setTimeout(function () {
+                    if (!endGame) {
+                        aiShooting();
+                        pcMoves++;
+                    }
+                }, 1000)
+            }
+        }
+
+        // Change turn
+
+        function changeTurn() {
+            if (!endGame) {
+                // console.log("changing turn");
+                if (playerTurn) {
+                    playerTurn = false;
+                    pcTurn = true;
+                } else {
+                    playerTurn = true;
+                    pcTurn = false;
+                }
+                shooting();
+            }
+        }
+
+        // Check the hit ship field
+
+        function checkHitShip(element, tableHit, tableSource) {
+            if (tableSource == pcShips) {
+                var eID = eval(element.id.substr(2));
+            } else {
+                var eID = eval(element.id.substr(6));
+            }
+            for (let i = 0; i < tableSource.length; i++) {
+                for (let j = 0; j < tableSource[i].positions.length; j++) {
+                    if (JSON.stringify(tableSource[i].positions[j]) == JSON.stringify(eID)) {
+                        if (tableSource[i].len == 1) {
+                            if (tableSource == playerShips) {
+                                sunkenPlayerShips++;
+                                aiDifficultyHardFrameRemove([eID]);
+                            } else {
+                                frameShip([element], pcFieldList)
+                            }
+                        }
+                        var pushNewToHit = true;
+                        for (let k = 0; k < tableHit.length; k++) {
+                            if (tableHit[k].name == tableSource[i].name) {
+                                tableHit[k].tableXY.push(eID);
+                                pushNewToHit = false
+                                if (tableHit[k].tableXY.length == tableSource[i].positions.length && tableSource == pcShips) {
+                                    frameShip(hitPcShips[k].tableXY.sort(), pcFieldList);
+                                }
+                                if (tableHit[k].tableXY.length == tableSource[i].positions.length && tableSource == playerShips) {
+                                    sunkenPlayerShips++;
+                                    aiDifficultyHardFrameRemove(tableSource[i].positions.sort());
+                                }
+                            }
+                        }
+                        if (pushNewToHit) {
+                            tableHit.push({
+                                name: tableSource[i].name,
+                                tableXY: [eID]
+                            })
+                        }
+                        if (tableSource == playerShips && sunkenPlayerShips == 10) {
+                            setTimeout(function () { winOrLose("Lose") }, 1);
+                        }
+                    }
+                }
+            }
+        }
+
+        // Frame sunk ship
+
+        function frameShip(elements, targetTable) {
+            if (elements.length == 1) {
+                elements[0].style.border = "2px solid rgb(0, 255, 255)";
+                elements[0].style.backgroundColor = "red";
+            } else {
+                if (elements[0][0] == elements[1][0]) {
+                    var frameDirect = 0
+                } else {
+                    var frameDirect = 1
+                }
+                for (let i = 0; i < elements.length; i++) {
+                    if (frameDirect == 0) {
+                        var eID = elements[i][0].toString() + elements[i][1].toString()
+                        targetTable[parseInt(eID)].style.border = "none";
+                        targetTable[parseInt(eID)].style.backgroundColor = "red";
+                        if (i == 0) {
+                            targetTable[parseInt(eID)].style.borderLeft = "2px solid rgb(0, 255, 255)"
+                        }
+                        if (i == elements.length - 1) {
+                            targetTable[parseInt(eID)].style.borderRight = "2px solid rgb(0, 255, 255)"
+                        }
+                        targetTable[parseInt(eID)].style.borderTop = "2px solid rgb(0, 255, 255)"
+                        targetTable[parseInt(eID)].style.borderBottom = "2px solid rgb(0, 255, 255)"
+                    } else {
+                        var eID = elements[i][0].toString() + elements[i][1].toString()
+                        targetTable[parseInt(eID)].style.border = "none";
+                        targetTable[parseInt(eID)].style.backgroundColor = "red";
+                        if (i == 0) {
+                            targetTable[parseInt(eID)].style.borderTop = "2px solid rgb(0, 255, 255)"
+                        }
+                        if (i == elements.length - 1) {
+                            targetTable[parseInt(eID)].style.borderBottom = "2px solid rgb(0, 255, 255)"
+                        }
+                        targetTable[parseInt(eID)].style.borderLeft = "2px solid rgb(0, 255, 255)"
+                        targetTable[parseInt(eID)].style.borderRight = "2px solid rgb(0, 255, 255)"
+                    }
+                }
+            }
+            if (targetTable == pcFieldList) {
+                framedPCShips += 1;
+                if (framedPCShips == 10) {
+                    setTimeout(function () {
+                        winOrLose("Win")
+                    }, 1)
+                }
+            }
+        }
+
+        // Base menu for AI shooting menu
+
+        function aiShooting() {
+            if (targetFields == null) {
+                targetFields = Array.from(playerFieldList);
+            }
+            var frameRemove = document.getElementsByClassName("frameRemove");
+            for (let i = 0; i < frameRemove.length; i++) {
+                if (targetFields.includes(frameRemove[i])) {
+                    targetFields.splice(targetFields.indexOf(frameRemove[i]), 1);
+                }
+            }
+            // difficultyAiEasy(targetFields);
+            // difficultyAiMedium(targetFields);
+            difficultyAiHard(targetFields);
+        }
+
+        // AI Difficulty - Easy
+
+        function difficultyAiEasy(table) {
+            console.log("Difficulty: easy");
+            var shootIndex = Math.floor(Math.random() * table.length);
+            var evalIndex = eval(table[shootIndex].id.substr(6));
+            var outIndex = parseInt(evalIndex[0].toString() + evalIndex[1].toString());
+            playerFieldList[outIndex].classList.add("shooted");
+            if (playerFieldList[outIndex].classList.contains("blueShip")) {
+                playerFieldList[outIndex].innerHTML = "&#10006;";
+                checkHitShip(playerFieldList[outIndex], hitPlayerShips, playerShips);
+                shooting();
+            } else {
+                playerFieldList[outIndex].innerHTML = "&middot;";
+                changeTurn();
+            }
+
+            targetFields.splice(shootIndex, 1);
+        }
+
+        // AI Difficulty - Medium
+
+        function difficultyAiMedium(table) {
+            console.log("Difficulty: medium");
+            if (!AiMediumHit) {
+                var shootIndex = Math.floor(Math.random() * table.length);
+                var evalIndex = eval(table[shootIndex].id.substr(6));
+                var outIndex = parseInt(evalIndex[0].toString() + evalIndex[1].toString());
+                targetFields.splice(shootIndex, 1);
+            } else {
+                var shootIndex = Math.floor(Math.random() * newTargetTable.length);
+                var evalIndex = eval(newTargetTable[shootIndex].id.substr(6));
+                var outIndex = parseInt(evalIndex[0].toString() + evalIndex[1].toString());
+                newTargetTable.splice(shootIndex, 1);
+                targetFields.splice(targetFields.indexOf(playerFieldList[outIndex]), 1);
+            }
+            playerFieldList[outIndex].classList.add("shooted");
+            if (playerFieldList[outIndex].classList.contains("blueShip")) {
+                playerFieldList[outIndex].innerHTML = "&#10006;";
+
+                checkHitShip(playerFieldList[outIndex], hitPlayerShips, playerShips);
+                AiMediumHit = true;
+
+                if (newTargetTable.length == 0 && tempHitAiMedium == null) {
+                    tempHitAiMedium = [];
+                    tempHitAiMedium.push(evalIndex, outIndex);
+                    newTargetTable = [];
+                    if (outIndex % 10 > 0) {
+                        if (!playerFieldList[outIndex - 1].classList.contains("shooted")) {
+                            newTargetTable.push(playerFieldList[outIndex - 1]);
+                        }
+                    }
+                    if (outIndex % 10 < 9) {
+                        if (!playerFieldList[outIndex + 1].classList.contains("shooted")) {
+                            newTargetTable.push(playerFieldList[outIndex + 1]);
+                        }
+                    }
+                    if (outIndex > 9) {
+                        if (!playerFieldList[outIndex - 10].classList.contains("shooted")) {
+                            newTargetTable.push(playerFieldList[outIndex - 10]);
+                        }
+                    }
+                    if (outIndex < 90) {
+                        if (!playerFieldList[outIndex + 10].classList.contains("shooted")) {
+                            newTargetTable.push(playerFieldList[outIndex + 10]);
+                        }
+                    }
+                } else {
+                    if (evalIndex[0] == tempHitAiMedium[0][0]) {
+                        mediumAiShipDirect = 0;
+                    } else {
+                        mediumAiShipDirect = 1;
+                    }
+                    if (mediumAiShipDirect == 0) {
+                        if (newTargetTable.indexOf(playerFieldList[tempHitAiMedium[1] - 1]) > -1) {
+                            tempToCheckAiMedium.push(playerFieldList[tempHitAiMedium[1] - 1])
+                        }
+                        if (newTargetTable.indexOf(playerFieldList[tempHitAiMedium[1] + 1]) > -1) {
+                            tempToCheckAiMedium.push(playerFieldList[tempHitAiMedium[1] + 1])
+                        }
+
+                        newTargetTable = [];
+                        if (outIndex % 10 > 0) {
+                            if (!playerFieldList[outIndex - 1].classList.contains("shooted")) {
+                                newTargetTable.push(playerFieldList[outIndex - 1]);
+                            }
+                        }
+                        if (outIndex % 10 < 9) {
+                            if (!playerFieldList[outIndex + 1].classList.contains("shooted")) {
+                                newTargetTable.push(playerFieldList[outIndex + 1]);
+                            }
+                        }
+
+                    } else {
+                        if (newTargetTable.indexOf(playerFieldList[tempHitAiMedium[1] - 10]) > -1) {
+                            tempToCheckAiMedium.push(playerFieldList[tempHitAiMedium[1] - 10])
+                        }
+                        if (newTargetTable.indexOf(playerFieldList[tempHitAiMedium[1] + 10]) > -1) {
+                            tempToCheckAiMedium.push(playerFieldList[tempHitAiMedium[1] + 10])
+                        }
+
+                        newTargetTable = [];
+                        if (outIndex > 9) {
+                            if (!playerFieldList[outIndex - 10].classList.contains("shooted")) {
+                                newTargetTable.push(playerFieldList[outIndex - 10]);
+                            }
+                        }
+                        if (outIndex < 90) {
+                            if (!playerFieldList[outIndex + 10].classList.contains("shooted")) {
+                                newTargetTable.push(playerFieldList[outIndex + 10]);
+                            }
+                        }
+                    }
+                }
+                shooting();
+            } else {
+                playerFieldList[outIndex].innerHTML = "&middot;";
+                changeTurn();
+            }
+            if (newTargetTable.length == 0) {
+                if (tempToCheckAiMedium.length == 0) {
+                    AiMediumHit = false;
+                    tempHitAiMedium = null;
+                } else {
+                    newTargetTable.push(tempToCheckAiMedium[0])
+                    tempToCheckAiMedium.splice(0, 1);
+                }
+            }
+        }
+
+        // AI Difficulty - Hard
+        var shootIndex
+
+        function difficultyAiHard(table) {
+            // console.log("Difficulty: hard");
+            if (!AiHardHit) {
+                shootIndex = Math.floor(Math.random() * table.length);
+                var evalIndex = eval(table[shootIndex].id.substr(6));
+                var outIndex = parseInt(evalIndex[0].toString() + evalIndex[1].toString());
+                targetFields.splice(shootIndex, 1);
+            } else {
+                shootIndex = Math.floor(Math.random() * newTargetTable.length);
+                var evalIndex = eval(newTargetTable[shootIndex].id.substr(6));
+                var outIndex = parseInt(evalIndex[0].toString() + evalIndex[1].toString());
+                newTargetTable.splice(shootIndex, 1);
+            }
+            playerFieldList[outIndex].classList.add("shooted");
+            if (playerFieldList[outIndex].classList.contains("blueShip")) {
+                playerFieldList[outIndex].innerHTML = "&#10006;";
+
+                AiHardHit = true;
+
+                if (newTargetTable.length == 0 && tempHitAiHard == null) {
+                    tempHitAiHard = [];
+                    tempHitAiHard.push(evalIndex, outIndex);
+                    newTargetTable = [];
+                    if (outIndex % 10 > 0) {
+                        if (!playerFieldList[outIndex - 1].classList.contains("shooted") && !playerFieldList[outIndex - 1].classList.contains("frameRemove")) {
+                            newTargetTable.push(playerFieldList[outIndex - 1]);
+                        }
+                    }
+                    if (outIndex % 10 < 9) {
+                        if (!playerFieldList[outIndex + 1].classList.contains("shooted") && !playerFieldList[outIndex + 1].classList.contains("frameRemove")) {
+                            newTargetTable.push(playerFieldList[outIndex + 1]);
+                        }
+                    }
+                    if (outIndex > 9) {
+                        if (!playerFieldList[outIndex - 10].classList.contains("shooted") && !playerFieldList[outIndex - 10].classList.contains("frameRemove")) {
+                            newTargetTable.push(playerFieldList[outIndex - 10]);
+                        }
+                    }
+                    if (outIndex < 90) {
+                        if (!playerFieldList[outIndex + 10].classList.contains("shooted") && !playerFieldList[outIndex + 10].classList.contains("frameRemove")) {
+                            newTargetTable.push(playerFieldList[outIndex + 10]);
+                        }
+                    }
+                } else {
+                    if (evalIndex[0] == tempHitAiHard[0][0]) {
+                        hardAiShipDirect = 0;
+                    } else {
+                        hardAiShipDirect = 1;
+                    }
+                    if (hardAiShipDirect == 0) {
+                        if (newTargetTable.indexOf(playerFieldList[tempHitAiHard[1] - 1]) > -1) {
+                            tempToCheckAiHard.push(playerFieldList[tempHitAiHard[1] - 1])
+                        }
+                        if (newTargetTable.indexOf(playerFieldList[tempHitAiHard[1] + 1]) > -1) {
+                            tempToCheckAiHard.push(playerFieldList[tempHitAiHard[1] + 1])
+                        }
+
+                        newTargetTable = [];
+                        if (outIndex % 10 > 0) {
+                            if (!playerFieldList[outIndex - 1].classList.contains("shooted") && !playerFieldList[outIndex - 1].classList.contains("frameRemove")) {
+                                newTargetTable.push(playerFieldList[outIndex - 1]);
+                            }
+                        }
+                        if (outIndex % 10 < 9) {
+                            if (!playerFieldList[outIndex + 1].classList.contains("shooted") && !playerFieldList[outIndex + 1].classList.contains("frameRemove")) {
+                                newTargetTable.push(playerFieldList[outIndex + 1]);
+                            }
+                        }
+
+                    } else {
+                        if (newTargetTable.indexOf(playerFieldList[tempHitAiHard[1] - 10]) > -1) {
+                            tempToCheckAiHard.push(playerFieldList[tempHitAiHard[1] - 10])
+                        }
+                        if (newTargetTable.indexOf(playerFieldList[tempHitAiHard[1] + 10]) > -1) {
+                            tempToCheckAiHard.push(playerFieldList[tempHitAiHard[1] + 10])
+                        }
+
+                        newTargetTable = [];
+                        if (outIndex > 9) {
+                            if (!playerFieldList[outIndex - 10].classList.contains("shooted") && !playerFieldList[outIndex - 10].classList.contains("frameRemove")) {
+                                newTargetTable.push(playerFieldList[outIndex - 10]);
+                            }
+                        }
+                        if (outIndex < 90) {
+                            if (!playerFieldList[outIndex + 10].classList.contains("shooted") && !playerFieldList[outIndex + 10].classList.contains("frameRemove")) {
+                                newTargetTable.push(playerFieldList[outIndex + 10]);
+                            }
+                        }
+                    }
+                }
+                checkHitShip(playerFieldList[outIndex], hitPlayerShips, playerShips);
+                shooting();
+            } else {
+                playerFieldList[outIndex].innerHTML = "&middot;";
+                changeTurn();
+            }
+            if (newTargetTable.length == 0) {
+                // if(tempToCheckAiHard.length > 0){
+                //     for(let i = 0; i<tempToCheckAiHard.length; i++){
+                //         if(tempToCheckAiHard[i].classList.contains("frameRemove")){
+                //             tempToCheckAiHard.splice(i, 1);
+                //         }
+                //     }
+                // }
+                if (tempToCheckAiHard.length == 0) {
+                    AiHardHit = false;
+                    tempHitAiHard = null;
+                } else {
+                    newTargetTable.push(tempToCheckAiHard[0])
+                    tempToCheckAiHard.splice(0, 1);
+                }
+            }
+        }
+
+        function aiDifficultyHardFrameRemove(elements) {
+            console.log(elements);
+            if (elements.length == 1 || elements[0][0] == elements[1][0]) {
+                var frameRemoveDirection = 0
+            } else {
+                var frameRemoveDirection = 1
+            }
+
+            if (frameRemoveDirection == 0) {
+                for (let i = 0; i < elements.length + 2; i++) {
+                    for(let j = 0; j < 3; j++){
+                        if((elements[0][1] == 0 && i == 0) || (elements[elements.length - 1][1] == 9 && i == elements.length + 1)){
+                            break;
+                        } else {
+                            var eID = parseInt((elements[0][0] - 1 + j).toString() + (elements[0][1] - 1 + i).toString())
+                            // console.log(eID);
+                            if (playerFieldList[eID] != undefined){
+                                playerFieldList[eID].classList.add("frameRemove");
+                            }
+                        }
+                    }
+
+
+                    // console.log("Horizontal eID1 " + eID);
+                    // if (playerFieldList[eID] != undefined && elements[0][0] != 0) {
+                    //     playerFieldList[eID].classList.add("frameRemove");
+                    // }
+                    // console.log("Horizontal eID2 " + eID);
+                    // if (playerFieldList[eID + 10] != undefined) {
+                    //     playerFieldList[eID].classList.add("frameRemove");
+                    // }
+                    // eID = parseInt((elements[0][0] + 1).toString() + (elements[0][1] - 1 + i).toString())
+                    // console.log("Horizontal eID3 " + eID);
+                    // if (playerFieldList[eID + 20] != undefined && elements[0][0] != 9) {
+                    //     playerFieldList[eID].classList.add("frameRemove");
+                    // }
+                }
+            } else {
+                for (let i = 0; i < 3; i++) {
+                    for ( let j = 0; j < elements.length + 2; j++){
+                        if((elements[0][1] == 0 && i == 0) || (elements[elements.length - 1][1] == 9 && i == 2)){
+                            break;
+                        } else {
+                            var eID = parseInt((elements[0][0] - 1 + j).toString() + (elements[0][1] - 1 + i).toString())
+                            console.log(eID);
+                            if (playerFieldList[eID] != undefined){
+                                playerFieldList[eID].classList.add("frameRemove");
+                            }
+                        }
+                    }
+
+                    // var eID;
+                    // eID = parseInt((elements[0][0] - 1 + i).toString() + (elements[0][1] - 1).toString())
+                    // console.log("Vertical eID1 " + eID);
+                    // if (playerFieldList[eID] != undefined && elements[0][1] != 0) {
+                    //     playerFieldList[eID].classList.add("frameRemove");
+                    // }
+                    // eID = parseInt((elements[0][0] - 1 + i).toString() + (elements[0][1]).toString())
+                    // console.log("Vertical eID2 " + eID);
+                    // if (playerFieldList[eID] != undefined) {
+                    //     playerFieldList[eID].classList.add("frameRemove");
+                    // }
+                    // eID = parseInt((elements[0][0] - 1 + i).toString() + (elements[0][1] + 1).toString())
+                    // console.log("Vertical eID3 " + eID);
+                    // if (playerFieldList[eID] != undefined && elements[0][1] != 9) {
+                    //     playerFieldList[eID].classList.add("frameRemove");
+                    // }
+                }
+            }
+        }
+
+        function aiDifficultyHardFrameRemoveee(elements) {
+            console.log(elements);
+            if (elements.length == 1 || elements[0][0] == elements[1][0]) {
+                var frameRemoveDirection = 0
+            } else {
+                var frameRemoveDirection = 1
+            }
+
+            if (frameRemoveDirection == 0) {
+                for (let i = 0; i < elements.length + 2; i++) {
+                    if (elements[0][0] == 0 && i == 0) {
+                        var eID = null
+                    } else {
+                        var eID = ((elements[0][0] * 10) - 10) + (elements[0][1] - 1 + i)
+                    }
+                    console.log("Horizontal eID1 " + eID);
+                    if (playerFieldList[eID] != undefined && elements[0][0] != 0) {
+                        playerFieldList[eID].classList.add("frameRemove");
+                    }
+                    console.log("Horizontal eID2 " + eID);
+                    if (playerFieldList[eID + 10] != undefined) {
+                        playerFieldList[eID].classList.add("frameRemove");
+                    }
+                    eID = parseInt((elements[0][0] + 1).toString() + (elements[0][1] - 1 + i).toString())
+                    console.log("Horizontal eID3 " + eID);
+                    if (playerFieldList[eID + 20] != undefined && elements[0][0] != 9) {
+                        playerFieldList[eID].classList.add("frameRemove");
+                    }
+                }
+            } else {
+                for (let i = 0; i < elements.length + 2; i++) {
+                    var eID;
+                    eID = parseInt((elements[0][0] - 1 + i).toString() + (elements[0][1] - 1).toString())
+                    console.log("Vertical eID1 " + eID);
+                    if (playerFieldList[eID] != undefined && elements[0][1] != 0) {
+                        playerFieldList[eID].classList.add("frameRemove");
+                    }
+                    eID = parseInt((elements[0][0] - 1 + i).toString() + (elements[0][1]).toString())
+                    console.log("Vertical eID2 " + eID);
+                    if (playerFieldList[eID] != undefined) {
+                        playerFieldList[eID].classList.add("frameRemove");
+                    }
+                    eID = parseInt((elements[0][0] - 1 + i).toString() + (elements[0][1] + 1).toString())
+                    console.log("Vertical eID3 " + eID);
+                    if (playerFieldList[eID] != undefined && elements[0][1] != 9) {
+                        playerFieldList[eID].classList.add("frameRemove");
+                    }
+                }
+            }
+        }
+
+
+
+        // When Player lose, display PC ships
+
+        function displayPcShips() {
+            var redShips = document.getElementsByClassName("redShip");
+            for (let i = 0; i < redShips.length; i++) {
+                redShips[i].style.backgroundColor = "red";
+            }
+        }
+
+        // function showing alerts and restarting the game
+
+        function winOrLose(event) {
+            if (event == "Win") {
+                endGame = true;
+                clearTimeout(pcShootTimeout);
+                alert("Wygrałeś!!!");
+                // startOrRestartGame();
+            } else {
+                endGame = true;
+                clearTimeout(pcShootTimeout);
+                alert("Przegrałeś!!!");
+                displayPcShips();
+                console.log(pcMoves);
+                setTimeout(function () {
+                    // startOrRestartGame();
+                }, 10000)
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>
