@@ -29,6 +29,8 @@ menuButton.addEventListener("click", () => {
     }
 
     arena.innerHTML = "";
+    dataList = [];
+    fieldsList = [];
 
     for (let i = 0; i < x; i++) {
         let arenaColumn = document.createElement("div");
