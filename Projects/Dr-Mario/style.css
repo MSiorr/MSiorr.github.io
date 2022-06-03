@@ -1,0 +1,226 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+html{
+    background-color: black;
+}
+
+#mainDiv, #mainDivMenu, #mainDivTitleScreen{
+    width: 100%;
+    height: 100%;
+    padding-top: calc((100vh - 576px) / 2);
+}
+
+#arena, #menuBack, #titleBack{
+    margin: 0 auto;
+    width: 960px;
+    height: 576px;
+    z-index: 10;
+    position: relative;
+}
+
+#arenaGame, #menuMain, #titleMain{
+    width: 100%;
+    height: 100%;
+    /* background-image: url("./img/background.png"); */
+    background-size: cover;
+    z-index: -1;
+}
+
+#gameTable{
+    display: flex;
+    position: absolute;
+    left: calc(17 * 24px);
+    top: calc(5 * 24px);
+}
+
+.field{
+    width: 24px;
+    height: 24px;
+}
+
+#topScoreDiv{
+    position: absolute;
+    top: calc(5 * 24px);
+    left: calc(5 * 24px);
+}
+
+#actualScoreDiv{
+    position: absolute;
+    top: calc(8 * 24px);
+    left: calc(5 * 24px);
+}
+
+#levelDiv{
+    position: absolute;
+    top: calc(15 * 24px);
+    right: calc(3 * 24px);
+}
+
+#speedDiv {
+    position: absolute;
+    top: calc(18 * 24px);
+    right: calc(2 * 24px);
+    width: calc(3 * 24px);
+    height: calc(1 * 24px);
+}
+
+#virusAmountDiv{
+    position: absolute;
+    top: calc(21 * 24px);
+    right: calc(3 * 24px);
+}
+
+#alertBackground{
+    position: absolute;
+    width: calc(14 * 24px);
+    height: calc(5 * 24px);
+    top: calc(8 * 24px);
+    left: calc(14 * 24px);
+}
+
+#magnifierDiv{
+    position: absolute;
+    display: flex;
+    width: calc(10 * 24px);
+    height: calc(9 * 24px);
+    left: calc(2 * 24px);
+    top: calc(13 * 24px);
+}
+
+#innerMagniferForImg{
+    position: relative;
+    width: calc(10 * 24px);
+    height: calc(9 * 24px);
+}
+
+.magnifierVirus {
+    position: absolute;
+}
+
+#throwPillDiv{
+    position: absolute;
+    display: flex;
+    left: calc(20 * 24px);
+}
+
+.throwPillColumn{
+    display: flex;
+    flex-direction: column;
+}
+
+.throwPillField{
+    width: 24px;
+    height: 24px;
+    /* border: 1px solid white; */
+}
+
+#marioPlaceHolder{
+    position: absolute;
+    top: calc(3*24px);
+    right: calc(3 * 24px);
+}
+
+#virusLevelSection {
+    position: absolute;
+    width: calc(24px * 13);
+    height: calc(24px * 3);
+    top: calc(24px * 2);
+    left: calc(24px * 8);
+    background-image: url("./img/menu/virusLevel.png");
+}
+
+#lvlSelectArrow, #speedSelectArrow, #titleArrow {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    background-image: url("./img/arrow.png");
+}
+
+#lvlValue {
+    position: absolute;
+    width: calc(24px * 2);
+    height: calc(24px * 1);
+    top: calc(24px * 5);
+    right: calc(24px * 7);
+    display: flex;
+}
+
+#speedSection {
+    position: absolute;
+    width: calc(24px * 7);
+    height: calc(24px * 3);
+    top: calc(24px * 9);
+    left: calc(24px * 8);
+    background-image: url("./img/menu/speed.png");
+}
+
+#musicSection {
+    position: absolute;
+    width: calc(24px * 7);
+    height: calc(24px * 3);
+    bottom: calc(24px * 5);
+    left: calc(24px * 8);
+    background-image: url("./img/menu/music.png");
+}
+
+#musicOff{
+    position: absolute;
+    width: calc(24px * 5);
+    height: calc(24px * 3);
+    bottom: calc(24px * 2);
+    left: calc(24px * 12);
+    background-image: url("./img/menu/music_off.png");
+}
+
+#musicFever {
+    position: absolute;
+    width: calc(24px * 7);
+    height: calc(24px * 3);
+    bottom: calc(24px * 2);
+    left: calc(24px * 18);
+    background-image: url("./img/menu/music_fever.png");
+}
+
+#musicChill {
+    position: absolute;
+    width: calc(24px * 7);
+    height: calc(24px * 3);
+    bottom: calc(24px * 2);
+    right: calc(24px * 7);
+    background-image: url("./img/menu/music_chill.png");
+}
+
+.numDiv {
+    width: 24px;
+    height: 24px;
+}
+
+#dancingVirus {
+    position: absolute;
+    width: calc(4 * 24px);
+    height: calc(3 * 24px);
+    bottom: calc(6 * 24px);
+    right: calc(9 * 24px);
+}
+
+#infoRouletteMain {
+    position: absolute;
+    width: calc(16 * 24px);
+    height: calc(1 * 24px);
+    bottom: calc(4 * 24px);
+    left: calc(11 * 24px);
+    overflow: hidden;
+}
+
+#infoRouletteImg {
+    position: absolute;
+    display: flex;
+}

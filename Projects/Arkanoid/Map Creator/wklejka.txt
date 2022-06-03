@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // spread operator
+        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
+        /*
+        console.log(...[1, 2, 3]);
+        console.log(..."ala ma kota");
+
+        let t = [1, 2, 3];
+        x = function (a, b, c) {
+            console.log(a, b, c);
+        }
+        x(...t);
+
+        let a = [1, 2];
+        let b = ["a", "b", ...a, "c", "d"];
+        console.log(b);
+
+        //es2018
+        let ob = { a: 1, b: 2 };
+        let ob2 = { c: 3, ...ob, d: 4 };
+        console.log(ob2);
+
+        // kopiowanie tablic
+        let xx = [1, 2, 3];
+        yy = xx;
+        console.log(xx, yy);
+        yy[0] = 10;
+        console.log(xx, yy);
+        zz = [...xx];
+        console.log(xx, zz);
+        zz[0] = 88;
+        console.log(xx, zz);
+        ww = JSON.parse(JSON.stringify(xx));
+        console.log(xx, ww);
+        ww[0] = 99;
+        console.log(xx, ww);
+
+        nn = [[0], [1], [2]];
+        mm = [...nn];
+        console.log(JSON.stringify(nn));
+        console.log(JSON.stringify(mm));
+        mm[0][0] = 66;
+        console.log(JSON.stringify(nn));
+        console.log(JSON.stringify(mm));
+        gg = JSON.parse(JSON.stringify(nn));
+        console.log(JSON.stringify(nn));
+        console.log(JSON.stringify(gg));
+        mm[0][0] = 99;
+        console.log(JSON.stringify(nn));
+        console.log(JSON.stringify(gg));
+        */
+
+        //rest parameters
+        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters
+        /*
+        function test(a, b, ...rest) {
+            console.log(arguments);
+            console.log(a, b, rest); // rest -> array!!!
+        }
+        test(1, 2, 3, 4, 5, 6, 7);
+
+        function dom(a, b = 20) { //parametry domyślne istnieją JS
+            console.log(a, b);
+        }
+        dom(10);
+        */
+
+        // Load from file
+        // MIME - https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
+        function load(f) {
+            console.log(f);
+            let file = f.files[0];
+            let reader = new FileReader();
+            reader.readAsText(file, 'utf-8');
+            reader.onload = (e) => {
+                console.log(e);
+            }
+        }
+
+        // Save file
+        // https://developer.mozilla.org/en-US/docs/Web/API/Blob
+
+        function save(name) {
+            let ob = { a: 1, b: 2, c: 3 };
+            let json = JSON.stringify(ob);
+            let blob = new Blob([json], { type: "text/javascript" });
+            let a = document.createElement("a");
+            a.innerText = "Save me";
+
+            let url = URL.createObjectURL(blob);
+            a.href = url;
+            a.download = name;
+            a.click();
+            //            document.body.appendChild(a);
+        }
+    </script>
+</head>
+
+<body>
+    <input type="file" onchange="load(this);" accept="text/javascript"></input>
+    <button onclick="save('test.js');">save</button>
+</body>
+
+</html>
