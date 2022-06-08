@@ -1,22 +1,26 @@
-*{
+* {
     box-sizing: border-box;
 }
-html, #main{
+
+html,
+#main {
     margin: 0;
     padding: 0;
 }
-body{
-    background-color:  #2F3336;
+
+body {
+    background-color: #2F3336;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
-#menu{
+
+#menu {
     width: 50vw;
-    height: 60vh;
+    height: 50vh;
     min-height: 180px;
     margin: auto;
     text-align: center;
     background-color: #1E2225;
-    border: 5px solid  #39a5f1;
+    border: 5px solid #39a5f1;
     border-radius: 20px;
     padding: 10px 5px;
     display: flex;
@@ -25,8 +29,9 @@ body{
     color: whitesmoke;
     margin-top: 20vh;
 }
-.menuButton{
-    border: 3px solid  #39a5f1;
+
+.menuButton {
+    border: 3px solid #39a5f1;
     color: whitesmoke;
     text-decoration: none;
     height: 17%;
@@ -39,20 +44,25 @@ body{
     justify-content: center;
     transition: background-color 0.2s;
 }
-a.menuButton:visited{
+
+a.menuButton:visited {
     color: whitesmoke;
     text-decoration: none;
 }
-.menuButton:hover{
+
+.menuButton:hover {
     background-color: #2F3336;
     cursor: pointer;
 }
-@media (max-width: 600px), (max-height: 300px){
-    body{
-        background-color:  #1E2225;
+
+@media (max-width: 600px),
+(max-height: 300px) {
+    body {
+        background-color: #1E2225;
         /* overflow: hidden; */
     }
-    #menu{
+
+    #menu {
         width: 90vw;
         height: 97vh;
         border: none;
